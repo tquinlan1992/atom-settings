@@ -1,0 +1,49 @@
+'.source.js':
+    'angular-controller':
+        'prefix': 'ang-controller'
+        'body': """
+        angular.module("controller", () => {
+        });
+        """
+
+    'angular-directive':
+        'prefix': 'ang-directive'
+        'body': """
+        angular.module("directive", () => {
+            return {
+                scope: {
+                    message: '='
+                },
+                template: '<div></div>',
+                controller: function () {
+                    this.message = 'Thomas directive';
+                },
+                controllerAs: '$ctrl',
+                bindToController: true
+            };
+        });
+        """
+
+    'angular-component':
+        'prefix': 'ang-component'
+        'body': """
+        angular.module("component", {
+                bindings: {
+                    message: '='
+                },
+                template: '<div></div>',
+                controller: function () {
+                    this.message = 'Thomas directive';
+                }
+        });
+        """
+
+    'angular-filter':
+        'prefix': 'ang-filter'
+        'body': """
+        angular.module("filter", () => {
+            return (input, option1) => {
+                return input + option1;
+            };
+        });
+        """

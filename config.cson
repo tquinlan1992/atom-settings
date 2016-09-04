@@ -37,7 +37,7 @@
       hideBottom: false
       hideTabs: false
   "git-projects":
-    rootPath: "/Users/thomasquinlan/Websites/2016; /Users/tom/Projects;"
+    rootPath: "/Users/thomasquinlan/Websites/2016"
   "goto-definition":
     rightMenuDisplayAtFirst: false
   "highlight-selected": {}
