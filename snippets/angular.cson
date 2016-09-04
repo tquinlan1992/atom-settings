@@ -1,13 +1,20 @@
 '.source.js':
+    'angular-app':
+        'prefix': 'angular-app'
+        'body': """
+        angular.module("app", () => [
+        ]);
+        """
+
     'angular-controller':
-        'prefix': 'ang-controller'
+        'prefix': 'angular-controller'
         'body': """
         angular.module("controller", () => {
         });
         """
 
     'angular-directive':
-        'prefix': 'ang-directive'
+        'prefix': 'angular-directive'
         'body': """
         angular.module("directive", () => {
             return {
@@ -25,7 +32,7 @@
         """
 
     'angular-component':
-        'prefix': 'ang-component'
+        'prefix': 'angular-component'
         'body': """
         angular.module("component", {
                 bindings: {
@@ -39,7 +46,7 @@
         """
 
     'angular-filter':
-        'prefix': 'ang-filter'
+        'prefix': 'angular-filter'
         'body': """
         angular.module("filter", () => {
             return (input, option1) => {
