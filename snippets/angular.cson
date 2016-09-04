@@ -2,21 +2,61 @@
     'angular-app':
         'prefix': 'angular-app'
         'body': """
-        angular.module("app", () => [
+        var app = angular.module("${1}", () => [
         ]);
+        """
+
+    'angular-app-component':
+        'prefix': 'angular-app-component'
+        'body': """
+        var app = angular.module("${1}", () => [
+        ]);
+
+        app.controller("${1}Controller", () => {
+        });
+
+        app.directive("${1}Directive", () => {
+            return {
+                scope: {
+                    message: '='
+                },
+                template: '<div></div>',
+                controller: function () {
+                    this.message = 'Thomas directive';
+                },
+                controllerAs: '$ctrl',
+                bindToController: true
+            };
+        });
+
+        app.component("${1}Component", {
+                bindings: {
+                    message: '='
+                },
+                template: '<div></div>',
+                controller: function () {
+                    this.message = 'Thomas directive';
+                }
+        });
+
+        app.filter("${1}Filter", () => {
+            return (input, option1) => {
+                return input + option1;
+            };
+        });
         """
 
     'angular-controller':
         'prefix': 'angular-controller'
         'body': """
-        angular.module("controller", () => {
+        app.controller("${1}", () => {
         });
         """
 
     'angular-directive':
         'prefix': 'angular-directive'
         'body': """
-        angular.module("directive", () => {
+        app.directive("${1}", () => {
             return {
                 scope: {
                     message: '='
@@ -34,7 +74,7 @@
     'angular-component':
         'prefix': 'angular-component'
         'body': """
-        angular.module("component", {
+        app.component("${1}", {
                 bindings: {
                     message: '='
                 },
@@ -48,7 +88,7 @@
     'angular-filter':
         'prefix': 'angular-filter'
         'body': """
-        angular.module("filter", () => {
+        app.filter("${1}", () => {
             return (input, option1) => {
                 return input + option1;
             };
