@@ -1,0 +1,7 @@
+# With the success of Atom, it's really difficult to choose keybindings that
+# will not enter in conflict whit anyone else's packages, so I let this file
+# empty to set your own keybindings.
+# For you informations, here's an exemple of my keybindings for tree-ignore
+
+# 'atom-workspace':
+#   'cmd-shift-h': 'tree-ignore:toggle'

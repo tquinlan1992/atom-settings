@@ -1,0 +1,5 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  '.tab': [
+    {label: 'Close Unmodified Tabs', command: 'tabs-closer:close-unmodified-tabs'}
+  ]

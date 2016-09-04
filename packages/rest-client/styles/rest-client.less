@@ -1,0 +1,79 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.rest-client {
+  position: relative;
+  overflow: auto;
+  .btn {
+    margin: 5px 0;
+  }
+  .buffer {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+
+.rest-client-url {
+  width: 100%;
+  font-size: 15px;
+  font-family: Consolas, 'Courier New';
+}
+
+.rest-client-headers, .rest-client-payload {
+  width: 100%;
+  font-family: Consolas, 'Courier New';
+}
+
+.rest-client-action-btns {
+  display: block;
+  float: right;
+  text-align: right;
+  .rest-client-clear {
+    margin-right: 10px;
+    color: @text-color-error;
+    &:hover {
+      color: lighten(@text-color-error, 10%);
+    }
+  }
+  .rest-client-send {
+    color: @text-color-success;
+    &:hover {
+      color: lighten(@text-color-success, 10%);
+    }
+  }
+}
+
+.field {
+  color: @text-color;
+  background-color: @input-background-color;
+  border: 1px solid @input-border-color;
+  &.rest-client-user-agent {
+    padding: 0 5px;
+    margin: 10px 5px;
+  }
+}
+
+.float-right {
+  float: right;
+}
+
+.lnk {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+input[type='text'], textarea {
+  border: 1px solid @input-border-color;
+  border-radius: 2px;
+  resize: none;
+}
+
+.rest-client-request-link-remove {
+  padding-left: 10px;
+}

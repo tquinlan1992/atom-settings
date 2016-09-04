@@ -1,0 +1,174 @@
+{
+  "name": "tree-view-git-status",
+  "main": "./lib/main",
+  "version": "1.1.0",
+  "description": "Show the Git repository status in the Atom tree-view",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/subesokun/atom-tree-view-git-status.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.7.0"
+  },
+  "dependencies": {
+    "fs-plus": "^2.9.1",
+    "temp": "^0.8.3"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "tree-view",
+    "git",
+    "vcs",
+    "scm",
+    "productivity"
+  ],
+  "readme": "# Tree View Git Status package\n\n[![Version](https://img.shields.io/apm/v/tree-view-git-status.svg?style=flat-square)](https://atom.io/packages/tree-view-git-status)\n[![Downloads](https://img.shields.io/apm/dm/tree-view-git-status.svg?style=flat-square)](https://atom.io/packages/tree-view-git-status)\n[![Status Linux & OSX](https://img.shields.io/travis/subesokun/atom-tree-view-git-status.svg?style=flat-square&label=Linux%20%26%20OSX)](https://travis-ci.org/subesokun/atom-tree-view-git-status)\n[![Status Windows](https://img.shields.io/appveyor/ci/subesokun/atom-tree-view-git-status.svg?style=flat-square&label=Windows)](https://ci.appveyor.com/project/subesokun/atom-tree-view-git-status)\n[![Dependency Status](https://img.shields.io/david/subesokun/atom-tree-view-git-status.svg?style=flat-square)](https://david-dm.org/subesokun/atom-tree-view-git-status)\n\nShow the Git repository status in the Atom tree-view.\n\n\n### Screenshots\n\n![Screenshot](https://github.com/subesokun/atom-tree-view-git-status/blob/master/screenshot.png?raw=true)\n\n![Screenshot Settings](https://github.com/subesokun/atom-tree-view-git-status/blob/master/screenshot-settings.png?raw=true)\n\n### Installation\n\n```\napm install tree-view-git-status\n```\n\n### Features\n\n* Show the Git branch name and commits ahead/behind labels for each project folder.\n* Plays nice together with the Atom [project-view](https://github.com/subesokun/atom-project-view) package.\n\n### License\n\nMIT\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/subesokun/atom-tree-view-git-status/issues"
+  },
+  "homepage": "https://github.com/subesokun/atom-tree-view-git-status#readme",
+  "_id": "tree-view-git-status@1.1.0",
+  "_shasum": "ef4a811025f91efcfcf9456349f360073d1ade24",
+  "_resolved": "file:../d-116713-18912-5sb4i0/package.tgz",
+  "_from": "../d-116713-18912-5sb4i0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "fs-plus",
+        "version": "2.9.1",
+        "path": "node_modules/fs-plus/lib/fs-plus.js"
+      },
+      {
+        "name": "async",
+        "version": "0.2.10",
+        "path": "node_modules/fs-plus/node_modules/async/lib/async.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.5",
+        "path": "node_modules/fs-plus/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "rimraf",
+        "version": "2.2.8",
+        "path": "node_modules/fs-plus/node_modules/rimraf/rimraf.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.6",
+        "path": "node_modules/fs-plus/node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      },
+      {
+        "name": "temp",
+        "version": "0.8.3",
+        "path": "node_modules/temp/lib/temp.js"
+      },
+      {
+        "name": "os-tmpdir",
+        "version": "1.0.1",
+        "path": "node_modules/temp/node_modules/os-tmpdir/index.js"
+      },
+      {
+        "name": "rimraf",
+        "version": "2.2.8",
+        "path": "node_modules/temp/node_modules/rimraf/rimraf.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/gitrepositoryasync.coffee",
+        "lib/main.coffee",
+        "lib/repositories.coffee",
+        "lib/treeviewui.coffee",
+        "lib/utils.coffee"
+      ],
+      ".js": [
+        "node_modules/fs-plus/lib/fs-plus.js",
+        "node_modules/fs-plus/node_modules/async/lib/async.js",
+        "node_modules/fs-plus/node_modules/mkdirp/examples/pow.js",
+        "node_modules/fs-plus/node_modules/mkdirp/index.js",
+        "node_modules/fs-plus/node_modules/rimraf/bin.js",
+        "node_modules/fs-plus/node_modules/rimraf/rimraf.js",
+        "node_modules/fs-plus/node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/underscore.js",
+        "node_modules/temp/examples/grepcount.js",
+        "node_modules/temp/examples/pdfcreator.js",
+        "node_modules/temp/lib/temp.js",
+        "node_modules/temp/no_cleanup.js",
+        "node_modules/temp/no_cleanup_on_exit.js",
+        "node_modules/temp/no_cleanup_on_exit.spec.js",
+        "node_modules/temp/node_modules/os-tmpdir/index.js",
+        "node_modules/temp/node_modules/rimraf/bin.js",
+        "node_modules/temp/node_modules/rimraf/rimraf.js"
+      ],
+      ".json": [
+        "node_modules/fs-plus/node_modules/async/component.json",
+        "node_modules/fs-plus/node_modules/async/package.json",
+        "node_modules/fs-plus/node_modules/mkdirp/package.json",
+        "node_modules/fs-plus/node_modules/rimraf/package.json",
+        "node_modules/fs-plus/node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/fs-plus/node_modules/underscore-plus/package.json",
+        "node_modules/fs-plus/package.json",
+        "node_modules/temp/node_modules/os-tmpdir/package.json",
+        "node_modules/temp/node_modules/rimraf/package.json",
+        "node_modules/temp/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "",
+          "spec"
+        ],
+        "dependencies": {
+          "fs-plus": "^2.9.1",
+          "temp": "^0.8.3"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/fs-plus/lib",
+          "node_modules/fs-plus"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mkdirp": "~0.3.5",
+          "rimraf": "~2.2.2",
+          "async": "~0.2.9"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/fs-plus/node_modules/underscore-plus/lib",
+          "node_modules/fs-plus/node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/temp/examples",
+          "node_modules/temp/lib",
+          "node_modules/temp",
+          "node_modules/temp/test"
+        ],
+        "dependencies": {
+          "os-tmpdir": "^1.0.0",
+          "rimraf": "~2.2.6"
+        }
+      }
+    ]
+  }
+}

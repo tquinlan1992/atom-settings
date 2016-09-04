@@ -1,0 +1,42 @@
+{
+  "name": "atom-quoter",
+  "main": "./lib/atom-quoter",
+  "version": "0.1.2",
+  "description": "Quote strings.",
+  "keywords": [],
+  "activationCommands": {
+    "atom-workspace": "atom-quoter:quote"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohlol/atom-quoter.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {},
+  "readme": "# Quoter\n[![apm](https://img.shields.io/apm/dm/atom-quoter.svg)](https://atom.io/packages/atom-quoter)\n[![apm](https://img.shields.io/apm/v/atom-quoter.svg)]()\n\n![Quoter](https://raw.github.com/ohlol/atom-quoter/master/quoter.gif)\n\nQuote strings with a quick keyboard shortcut!\n\n## Install\n```\n$ apm install atom-quoter\n```\nOr, alternatively you can intall within Atom via Preferences > Install (search for `atom-quoter`).\n\n## Usage\nHighlight a string you want to quote and press `ctrl-cmd-q` (Mac) / `ctrl-alt-q` (Linux/Windows).\n\nThere is a menu item for it as well under Packages.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/ohlol/atom-quoter/issues"
+  },
+  "homepage": "https://github.com/ohlol/atom-quoter#readme",
+  "_id": "atom-quoter@0.1.2",
+  "_shasum": "1c5c943ef47e7efb5529d10af7b4c241a3ce20d0",
+  "_resolved": "file:../d-116016-15757-7hsnc3/package.tgz",
+  "_from": "../d-116016-15757-7hsnc3/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/atom-quoter.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
