@@ -4,4 +4,4 @@ dev
 .npm
 .node-gyp
 .DS_Store
-packages/save-session/
+packages/save-session
