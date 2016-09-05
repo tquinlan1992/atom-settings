@@ -7,3 +7,8 @@ dev
 packages/save-session
 .apm/.apmrc
 config.cson
+restore-windows
+recovery
+git-time-machine
+split-diff
+blob-store
