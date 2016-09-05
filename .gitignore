@@ -6,7 +6,6 @@ dev
 .DS_Store
 packages/save-session
 .apm/.apmrc
-config.cson
 restore-windows
 recovery
 git-time-machine

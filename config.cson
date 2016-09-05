@@ -1,0 +1,100 @@
+"*":
+    "atom-beautify":
+        general:
+            _analyticsUserId: "d4736ea2-6d5d-4e45-b8fc-f2e72cbc851c"
+        js: {
+            "esnext": true,
+            "curly": true,
+            "forin": true,
+            "eqeqeq": true,
+            "eqnull": true,
+            "latedef": "nofunc",
+            "notypeof": true,
+            "undef": true,
+            "unused": true,
+            "node": true
+        }
+    "atom-jshint": {}
+    "autoclose-html": {}
+    "browser-refresh-on-save":
+        scripts: {}
+    core:
+        packagesWithKeymapsDisabled: [
+            "refactor"
+            "tree-view"
+            "atom-quoter"
+            "hide-files"
+            "genesis-ui"
+            "git-projects"
+        ]
+        themes: [
+            "genesis-ui"
+            "an-old-hope-syntax"
+        ]
+    editor:
+        fontSize: 11
+        invisibles: {}
+        preferredLineLength: 140
+        softWrap: true
+        softWrapAtPreferredLineLength: true
+        tabLength: 4
+    "exception-reporting":
+        userId: "a3a46bc9-7363-c431-d2cc-91a1d32cecf8"
+    "find-and-replace":
+        focusEditorAfterSearch: true
+    "fuzzy-finder": {}
+    "genesis-ui":
+        distractionFree:
+            hideBottom: false
+            hideTabs: false
+    "git-projects":
+        rootPath: "/Users/thomasquinlan/Websites/2016"
+    "goto-definition":
+        rightMenuDisplayAtFirst: false
+    "highlight-selected": {}
+    "linter-jshint": {}
+    minimap: {}
+    "npm-install": {}
+    pigments:
+        markerType: "square-dot"
+    "save-session":
+        dataSaveFolder: "/Users/thomasquinlan/.atom/packages/save-session/projects"
+    "split-diff":
+        diffWords: true
+        ignoreWhitespace: true
+        leftEditorColor: "red"
+        rightEditorColor: "green"
+        syncHorizontalScroll: true
+    tabs: {}
+    "terminal-plus":
+        core: {}
+        style:
+            theme: "dracula"
+    "tree-ignore": {}
+    "tree-view": {}
+    "tree-view-git-status": {}
+    "tree-view-open-files": {}
+    "unity-dark-ui":
+        colorStatusIndicatorsInTreeView: true
+    welcome:
+        showOnStartup: false
+".angular.html.text":
+    editor:
+        preferredLineLength: 115
+        tabLength: 4
+".diff.source":
+    editor:
+        preferredLineLength: 115
+        tabLength: 4
+".git-commit.text":
+    editor:
+        preferredLineLength: 140
+        tabLength: 4
+".git-config.source":
+    editor:
+        preferredLineLength: 140
+        tabLength: 4
+".git-rebase.text":
+    editor:
+        preferredLineLength: 140
+        tabLength: 4
