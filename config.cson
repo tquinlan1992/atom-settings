@@ -18,7 +18,7 @@
     ]
     themes: [
       "genesis-ui"
-      "one-dark-syntax"
+      "an-old-hope-syntax"
     ]
   editor:
     fontSize: 11
