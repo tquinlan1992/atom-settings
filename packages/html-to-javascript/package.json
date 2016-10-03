@@ -1,0 +1,69 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+        "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116823-57956-7y5j6e"
+    ]
+  ],
+  "_from": "../d-116823-57956-3pd0jg/package.tgz",
+  "_id": "html-to-javascript@0.2.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/html-to-javascript",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+    "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-116823-57956-3pd0jg/package.tgz",
+  "_shasum": "bcf7d2041bca70af1bef36cfc651687c257b7e48",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116823-57956-3pd0jg/package.tgz",
+  "_where": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116823-57956-7y5j6e",
+  "activationCommands": {
+    "atom-workspace": [
+      "html-to-javascript:convert",
+      "html-to-javascript:js-to-html"
+    ]
+  },
+  "bugs": {
+    "url": "https://github.com/keevan/atom-html-to-javascript/issues"
+  },
+  "dependencies": {
+    "jquery": "^2.0.0"
+  },
+  "description": "HTML to Javascript as string, and vice versa.",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com/keevan/atom-html-to-javascript#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "./lib/html-to-javascript",
+  "name": "html-to-javascript",
+  "optionalDependencies": {},
+  "readme": "# html-to-javascript\n\nThis converts text string to a javascript variable or javascript ready code.\nThis package is intended to be used for the conversion of HTML code in to a javascript variable for later use.\n\nThe package is meant to help transition between JS and HTML code efficiently whilst keeping a degree of structure with existing code. If you prefer the lines to be indented the way that is done via \"auto-indent\" then use the command afterwards. I may add an option for that in the future.\n\nThe tools for this particular process online I've found to be quite limiting in that the code never comes out indented, or is indented within the javascript string, which means after minification, the spaces will still be there. (**quite _wasteful_**)\n\n\n\n\n## Example of the conversion to a javascript string\n![Example of the conversion to a javascript string](https://puu.sh/qhoQV/3b18444414.gif)\n\nThis package's goal is also intended to be used to convert javascript HTML strings (generated from HTML-to-JS function) to plain HTML and vice versa the section is *selected*.\n\nIf the change to go from javascript string to html functional, any javascript variables inside this will probably be ignored because they aren't actually computed during conversion.\n\n\n> This is my first atom package. <em>Please bear with me :D</em>\n\n## Current Hotkeys:\n<b>ctrl+shift+j</b> (default) : Converts HTML to Javascript string.\nYou should be able to change this in the keymap file of atom, using the command 'atom-html-to-javascript:convert'\n\n## TODO:\n- Convert Javascript string of HTML back in to HTML form for easy manipulation.\n- Optionally get ignore empty lines (by default)\n- Detect what state it is in and toggle between the two. (rather than just having a key to convert forward, and one backwards)\n- Remove unneeded package generator generated code.\n- There will be a hotkey for HTML-to-Javascript and one for Javascript-to-HTML.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keevan/atom-html-to-javascript.git"
+  },
+  "version": "0.2.0"
+}

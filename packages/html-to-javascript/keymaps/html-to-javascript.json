@@ -1,0 +1,6 @@
+{
+  "atom-workspace": {
+    "ctrl-shift-j": "html-to-javascript:convert",
+		"shift-alt-j": "html-to-javascript:js-to-html"
+  }
+}

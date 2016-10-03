@@ -1,20 +1,58 @@
 {
-  "name": "linter-shellcheck",
-  "linter-package": true,
-  "main": "./lib/main",
-  "version": "1.2.0",
-  "description": "Lint Bash on the fly, using shellcheck",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AtomLinter/linter-shellcheck.git"
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+        "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116822-50350-wyea7z"
+    ]
+  ],
+  "_from": "../d-116822-50350-j65r79/package.tgz",
+  "_id": "linter-shellcheck@1.2.1",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/linter-shellcheck",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+    "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+    "type": "local"
   },
-  "license": "MIT",
-  "engines": {
-    "atom": ">0.180.0"
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-116822-50350-j65r79/package.tgz",
+  "_shasum": "99ef8dbb621a1c38661b3c5a1bdc2b47de1ce475",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116822-50350-j65r79/package.tgz",
+  "_where": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116822-50350-wyea7z",
+  "bugs": {
+    "url": "https://github.com/AtomLinter/linter-shellcheck/issues"
   },
   "dependencies": {
-    "atom-linter": "^4.7.0"
+    "atom-linter": "^8.0.0"
   },
+  "description": "Lint Bash on the fly, using shellcheck",
+  "devDependencies": {},
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "homepage": "https://github.com/AtomLinter/linter-shellcheck#readme",
+  "license": "MIT",
+  "linter-package": true,
+  "main": "./lib/main",
+  "name": "linter-shellcheck",
+  "optionalDependencies": {},
   "providedServices": {
     "linter": {
       "versions": {
@@ -24,165 +62,9 @@
   },
   "readme": "# linter-shellcheck\n\nThis linter plugin for [Linter][linter] provides an interface to\n[shellcheck][shellcheck]. It will be used with files that have the \"Shell\"\nsyntax.\n\n## Installation\n\nLinter package must be installed in order to use this plugin. If Linter is not\ninstalled, please follow the instructions [here][linter].\n\n### `shellcheck` installation\n\nBefore using this plugin, you must ensure that `shellcheck` is installed on\nyour system. To install `shellcheck`, follow the guide on\n[shellcheck github][shellcheck]\n\n### Plugin installation\n\n```ShellSession\napm install linter-shellcheck\n```\n\n## Settings\n\nYou can configure linter-shellcheck through Atom's Settings menu. If you\ninstead prefer editing the configuration by hand you can get to that by editing\n`~/.atom/config.cson` (choose Open Your Config in Atom menu). The settings\navailable are:\n\n*   `shellcheckExecutablePath`: The full path to the `shellcheck` executable.\nRun `which shellcheck` to find where it is installed on your system.\n\n*   `userParameters`: Any additional executable parameters to pass to\n`shellcheck` when linting your files.\n\n[linter]: https://github.com/atom-community/linter \"Linter\"\n[shellcheck]: https://github.com/koalaman/shellcheck \"ShellCheck\"\n",
   "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/AtomLinter/linter-shellcheck/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtomLinter/linter-shellcheck.git"
   },
-  "homepage": "https://github.com/AtomLinter/linter-shellcheck#readme",
-  "_id": "linter-shellcheck@1.2.0",
-  "_shasum": "d7af73a17a21c991fea523166338a76518d18036",
-  "_resolved": "file:../d-11648-58924-v9dkx1/package.tgz",
-  "_from": "../d-11648-58924-v9dkx1/package.tgz",
-  "_atomModuleCache": {
-    "version": 1,
-    "dependencies": [
-      {
-        "name": "atom-linter",
-        "version": "4.7.0",
-        "path": "node_modules/atom-linter/lib/index.js"
-      },
-      {
-        "name": "named-js-regexp",
-        "version": "1.3.1",
-        "path": "node_modules/atom-linter/node_modules/named-js-regexp/lib/named-js-regexp.js"
-      },
-      {
-        "name": "sb-exec",
-        "version": "1.0.5",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/lib/index.js"
-      },
-      {
-        "name": "consistent-env",
-        "version": "1.1.2",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js"
-      },
-      {
-        "name": "extify",
-        "version": "1.0.0",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js"
-      },
-      {
-        "name": "sb-npm-path",
-        "version": "1.0.0",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js"
-      },
-      {
-        "name": "sb-memoize",
-        "version": "1.0.2",
-        "path": "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js"
-      },
-      {
-        "name": "sb-promisify",
-        "version": "1.3.0",
-        "path": "node_modules/atom-linter/node_modules/sb-promisify/lib/index.js"
-      },
-      {
-        "name": "tmp",
-        "version": "0.0.28",
-        "path": "node_modules/atom-linter/node_modules/tmp/lib/tmp.js"
-      },
-      {
-        "name": "os-tmpdir",
-        "version": "1.0.1",
-        "path": "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js"
-      }
-    ],
-    "extensions": {
-      ".coffee": [
-        "lib/main.coffee"
-      ],
-      ".js": [
-        "node_modules/atom-linter/lib/helpers.js",
-        "node_modules/atom-linter/lib/index.js",
-        "node_modules/atom-linter/lib/types.js",
-        "node_modules/atom-linter/node_modules/named-js-regexp/lib/named-js-regexp.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/lib/types.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/helpers.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/lib/index.js",
-        "node_modules/atom-linter/node_modules/sb-promisify/lib/index.js",
-        "node_modules/atom-linter/node_modules/tmp/Gruntfile.js",
-        "node_modules/atom-linter/node_modules/tmp/lib/tmp.js",
-        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/index.js"
-      ],
-      ".json": [
-        "node_modules/atom-linter/node_modules/named-js-regexp/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/.eslintrc.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/consistent-env/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/.eslintrc.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/extify/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/.eslintrc.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/.eslintrc.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/node_modules/sb-memoize/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/package.json",
-        "node_modules/atom-linter/node_modules/sb-exec/package.json",
-        "node_modules/atom-linter/node_modules/sb-promisify/package.json",
-        "node_modules/atom-linter/node_modules/tmp/node_modules/os-tmpdir/package.json",
-        "node_modules/atom-linter/node_modules/tmp/package.json",
-        "node_modules/atom-linter/package.json",
-        "package.json"
-      ]
-    },
-    "folders": [
-      {
-        "paths": [
-          "lib",
-          ""
-        ],
-        "dependencies": {
-          "atom-linter": "^4.7.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-linter/lib",
-          "node_modules/atom-linter"
-        ],
-        "dependencies": {
-          "named-js-regexp": "^1.3.1",
-          "sb-exec": "^1.0.4",
-          "sb-promisify": "^1.0.0",
-          "tmp": "~0.0.28"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-linter/node_modules/sb-exec",
-          "node_modules/atom-linter/node_modules/sb-exec/lib"
-        ],
-        "dependencies": {
-          "consistent-env": "^1.0.1",
-          "extify": "^1.0.0",
-          "sb-npm-path": "^1.0.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path",
-          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/lib",
-          "node_modules/atom-linter/node_modules/sb-exec/node_modules/sb-npm-path/spec"
-        ],
-        "dependencies": {
-          "sb-memoize": "^1.0.1",
-          "sb-promisify": "^1.2.0"
-        }
-      },
-      {
-        "paths": [
-          "node_modules/atom-linter/node_modules/tmp",
-          "node_modules/atom-linter/node_modules/tmp/lib",
-          "node_modules/atom-linter/node_modules/tmp/test",
-          "node_modules/atom-linter/node_modules/tmp/test/symlinkme"
-        ],
-        "dependencies": {
-          "os-tmpdir": "~1.0.1"
-        }
-      }
-    ]
-  }
+  "version": "1.2.1"
 }

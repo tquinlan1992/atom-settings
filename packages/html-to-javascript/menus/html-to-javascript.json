@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "HTML -> JS",
+        "command": "html-to-javascript:convert"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "html-to-javascript",
+          "submenu": [
+            {
+              "label": "Convert HTML -> JS",
+              "command": "html-to-javascript:convert"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

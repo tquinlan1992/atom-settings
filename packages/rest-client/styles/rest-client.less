@@ -16,6 +16,32 @@
   }
 }
 
+.rest-client-url-container {
+  float: left;
+  width: 50%;
+
+  @media only screen and (max-width: 800px) {
+    width: 100%;
+    float: none;
+  }
+}
+
+.rest-client-result-container {
+  float: right;
+  width: 50%;
+
+  @media only screen and (min-width: 800px) {
+    padding-top: 0;
+  }
+
+  @media only screen and (max-width: 800px) {
+    width: 100%;
+    float: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 .rest-client-url {
   width: 100%;
   font-size: 15px;
@@ -50,7 +76,8 @@
   color: @text-color;
   background-color: @input-background-color;
   border: 1px solid @input-border-color;
-  &.rest-client-user-agent {
+  &.rest-client-user-agent, &.rest-client-proxy-server,
+  &.rest-client-strict-ssl {
     padding: 0 5px;
     margin: 10px 5px;
   }
@@ -76,4 +103,24 @@ input[type='text'], textarea {
 
 .rest-client-request-link-remove {
   padding-left: 10px;
+}
+
+.rest-client-header {
+  color: @text-color-info;
+}
+
+.rest-client-header:hover {
+  cursor: pointer;
+}
+
+.header-expanded::before {
+  content: '↓ ';
+}
+
+.header-collapsed::before {
+  content: '→ ';
+}
+
+.header-collapsed::after {
+  content: ' …'
 }
