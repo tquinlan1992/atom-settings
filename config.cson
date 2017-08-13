@@ -16,12 +16,13 @@
       "genesis-ui"
       "git-projects"
     ]
+    telemetryConsent: "no"
     themes: [
       "genesis-ui"
       "one-dark-syntax"
     ]
   editor:
-    fontSize: 11
+    fontSize: 16
     invisibles: {}
     preferredLineLength: 140
     softWrap: true
@@ -36,6 +37,8 @@
     distractionFree:
       hideBottom: false
       hideTabs: false
+  "git-blame":
+    columnWidth: 472
   "git-projects":
     rootPath: "/Users/thomasquinlan/Websites/2016; /Users/tom/Projects;"
   "goto-definition":

@@ -1,15 +1,19 @@
 '.source.js':
-    'angular-app':
+    'angular-module':
         'prefix': 'angular-app'
         'body': """
-        var app = angular.module("${1}", () => [
+        const angular = require("angular");
+
+        const app = angular.module("${1}", [
         ]);
+
+        module.exports = "${1}"
         """
 
     'angular-app-component':
         'prefix': 'angular-app-component'
         'body': """
-        var app = angular.module("${1}", () => [
+        const app = angular.module("${1}", [
         ]);
 
         app.controller("${1}Controller", () => {
@@ -17,25 +21,19 @@
 
         app.directive("${1}Directive", () => {
             return {
-                scope: {
-                    message: '='
-                },
-                template: '<div></div>',
+                scope: {},
+                templateUrl: '/index.html',
                 controller: function () {
-                    this.message = 'Thomas directive';
-                },
-                controllerAs: '$ctrl',
-                bindToController: true
+                }
             };
         });
 
         app.component("${1}Component", {
                 bindings: {
-                    message: '='
                 },
                 template: '<div></div>',
                 controller: function () {
-                    this.message = 'Thomas directive';
+
                 }
         });
 
@@ -59,14 +57,10 @@
         app.directive("${1}", () => {
             return {
                 scope: {
-                    message: '='
                 },
-                template: '<div></div>',
+                template: '/index.html',
                 controller: function () {
-                    this.message = 'Thomas directive';
-                },
-                controllerAs: '$ctrl',
-                bindToController: true
+                }
             };
         });
         """
@@ -92,5 +86,13 @@
             return (input, option1) => {
                 return input + option1;
             };
+        });
+        """
+
+    'angular-factory':
+        'prefix': 'angular-factory'
+        'body': """
+        app.factory("${1}", () => {
+            ${2}
         });
         """
