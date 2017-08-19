@@ -14,84 +14,63 @@ import {
   formatType
 } from './atom-ternjs-helper';
 
+import {deepClone} from 'underscore-plus';
+
 class Type {
 
   constructor() {
 
-    this.view = undefined;
-    this.overlayDecoration = undefined;
-    this.marker = undefined;
+    this.view = null;
+    this.overlayDecoration = null;
+
+    this.currentRange = null;
+    this.currentViewData = null;
+
+    this.destroyOverlayListener = this.destroyOverlay.bind(this);
+  }
+
+  init() {
 
     this.view = new TypeView();
     this.view.initialize(this);
 
     atom.views.getView(atom.workspace).appendChild(this.view);
 
-    this.destroyOverlayHandler = this.destroyOverlay.bind(this);
-
-    emitter.on('type-destroy-overlay', this.destroyOverlayHandler);
+    emitter.on('type-destroy-overlay', this.destroyOverlayListener);
   }
 
   setPosition() {
 
-    if (!this.marker) {
+    if (this.overlayDecoration) {
 
-      const editor = atom.workspace.getActiveTextEditor();
-
-      if (!editor) {
-
-        return;
-      }
-
-      this.marker = editor.getLastCursor && editor.getLastCursor().getMarker();
-
-      if (!this.marker) {
-
-        return;
-      }
-
-      this.overlayDecoration = editor.decorateMarker(this.marker, {
-
-        type: 'overlay',
-        item: this.view,
-        class: 'atom-ternjs-type',
-        position: 'tale',
-        invalidate: 'touch'
-      });
-
-    } else {
-
-      this.marker.setProperties({
-
-        type: 'overlay',
-        item: this.view,
-        class: 'atom-ternjs-type',
-        position: 'tale',
-        invalidate: 'touch'
-      });
+      return;
     }
+
+    const editor = atom.workspace.getActiveTextEditor();
+
+    if (!editor) {
+
+      return;
+    }
+
+    const marker = editor.getLastCursor().getMarker();
+
+    if (!marker) {
+
+      return;
+    }
+
+    this.overlayDecoration = editor.decorateMarker(marker, {
+
+      type: 'overlay',
+      item: this.view,
+      class: 'atom-ternjs-type',
+      position: 'tale',
+      invalidate: 'touch'
+    });
   }
 
-  queryType(editor, cursor) {
-
-    if (
-      !packageConfig.options.inlineFnCompletion ||
-      !cursor ||
-      cursor.destroyed ||
-      !manager.client
-    ) {
-
-      return;
-    }
-
-    const scopeDescriptor = cursor.getScopeDescriptor();
-
-    if (scopeDescriptor.scopes.join().match(/comment/)) {
-
-      this.destroyOverlay();
-
-      return;
-    }
+  queryType(editor, e) {
 
     let rowStart = 0;
     let rangeBefore = false;
@@ -101,7 +80,7 @@ class Type {
     let skipCounter = 0;
     let skipCounter2 = 0;
     let paramPosition = 0;
-    const position = cursor.getBufferPosition();
+    const position = e.newBufferPosition;
     const buffer = editor.getBuffer();
 
     if (position.row - TOLERANCE < 0) {
@@ -114,12 +93,6 @@ class Type {
     }
 
     buffer.backwardsScanInRange(/\]|\[|\(|\)|\,|\{|\}/g, new Range([rowStart, 0], [position.row, position.column]), (obj) => {
-
-      // return early if we are inside a string
-      if (editor.scopeDescriptorForBufferPosition(obj.range.start).scopes.join().match(/string/)) {
-
-        return;
-      }
 
       if (obj.matchText === '}') {
 
@@ -211,50 +184,91 @@ class Type {
 
     if (!rangeBefore) {
 
+      this.currentViewData = null;
+      this.currentRange = null;
       this.destroyOverlay();
+
       return;
     }
 
-    manager.client.update(editor).then((data) => {
+    if (rangeBefore.isEqual(this.currentRange)) {
+
+      this.currentViewData && this.setViewData(this.currentViewData, paramPosition);
+
+      return;
+    }
+
+    this.currentRange = rangeBefore;
+    this.currentViewData = null;
+    this.destroyOverlay();
+
+    manager.client.update(editor).then(() => {
 
       manager.client.type(editor, rangeBefore.start).then((data) => {
 
-        if (!data || data.type === '?' || !data.exprName) {
-
-          this.destroyOverlay();
+        if (
+          !data ||
+          !data.type.startsWith('fn') ||
+          !data.exprName
+        ) {
 
           return;
         }
 
-        const type = prepareType(data);
-        const params = extractParams(type);
-        formatType(data);
+        this.currentViewData = data;
 
-        if (params && params[paramPosition]) {
+        this.setViewData(data, paramPosition);
+      })
+      .catch((error) => {
 
-          const offsetFix = paramPosition > 0 ? ' ' : '';
-          data.type = data.type.replace(params[paramPosition], `${offsetFix}<span class="storage type">${params[paramPosition]}</span>`);
-        }
-
-        if (
-          data.doc &&
-          packageConfig.options.inlineFnCompletionDocumentation
-        ) {
-
-          data.doc = data.doc && data.doc.replace(/(?:\r\n|\r|\n)/g, '<br />');
-          data.doc = prepareInlineDocs(data.doc);
-        }
-
-        this.view.setData(data);
-
-        this.setPosition();
+        // most likely the type wasn't found. ignore it.
       });
     });
   }
 
+  setViewData(data, paramPosition) {
+
+    const viewData = deepClone(data);
+    const type = prepareType(viewData);
+    const params = extractParams(type);
+    formatType(viewData);
+
+    if (params && params[paramPosition]) {
+
+      viewData.type = viewData.type.replace(params[paramPosition], `<span class="text-info">${params[paramPosition]}</span>`);
+    }
+
+    if (
+      viewData.doc &&
+      packageConfig.options.inlineFnCompletionDocumentation
+    ) {
+
+      viewData.doc = viewData.doc && viewData.doc.replace(/(?:\r\n|\r|\n)/g, '<br />');
+      viewData.doc = prepareInlineDocs(viewData.doc);
+
+      this.view.setData(viewData.type, viewData.doc);
+
+    } else {
+
+      this.view.setData(viewData.type);
+    }
+
+    this.setPosition();
+  }
+
+  destroyOverlay() {
+
+    if (this.overlayDecoration) {
+
+      this.overlayDecoration.destroy();
+    }
+
+    this.overlayDecoration = null;
+  }
+
   destroy() {
 
-    emitter.off('destroy-type-overlay', this.destroyOverlayHandler);
+    emitter.off('destroy-type-overlay', this.destroyOverlayListener);
 
     this.destroyOverlay();
 
@@ -262,17 +276,6 @@ class Type {
 
       this.view.destroy();
       this.view = null;
-    }
-  }
-
-  destroyOverlay() {
-
-    this.marker = undefined;
-
-    if (this.overlayDecoration) {
-
-      this.overlayDecoration.destroy();
-      this.overlayDecoration = undefined;
     }
   }
 }

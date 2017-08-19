@@ -1,3 +1,44 @@
+## [0.18.0]
+- destroy the tern server if there is no text-editor associated with it
+- a tern server now is forked for files not within a project. this is a WIP
+- reduce the files requests to the server per file file to 1 instead of requesting it every time an update is requested
+- type now uses cached view-data as long as the cursor is inside the same method call
+- updated tern to 0.21.0
+- less error spamming through the console
+- minor memory optimizations
+- check if pending requests exceed a specific limit and restart the server if this limit is reached
+- rewritten configure project
+- configure project now is displayed via a pane
+- fixed deactivation / activation of package
+- rename now uses a modal instead a bottom panel
+
+## [0.17.2]
+- fix marker (inline function completion) not being destroyed correctly
+
+## [0.17.1]
+- fix IDBStore errors by not storing an reference to the view inside the marker
+- add `JavaScript (JSX)` to grammars
+- the package now gets activated if `configure project` is triggered
+- fix spamming errors and breaking autocomplete-plus if update is triggered on an unnamed/unsaved file by rejected the promise
+- Hyperclick action opens an empty file in multiproject workspace. thx @Sysoev
+- When ternjs webpack plugin in use, and we query for a definition the response contains absolute path. thx @Sysoev
+
+## [0.17.0]
+- restart server on child process error. thx @A2K
+- add hyperclick support and remove the old custom logic. thx @smitt04
+- fix deprecation warnings for atom 1.13.0. thx @Greenek
+- fix for current param not highlighted in inline suggestions
+
+## [0.16.0]
+- fix option behaviour for 'Display snippets above'
+- add syntax selectors for atom >= 1.13.0
+- delay the activation of the package via activationHooks. thx @walles
+- updated keymaps for definition since it was colliding with a core feature
+- added `Babel ES6 JavaScript` to valid grammars
+- only regain editor focus if a panel is visible. this prevents auto-focus of the editor if a file is opened via the tree-view
+- fix selector for win32 in keymaps. thx @seungha-kim
+- fix for 3-rd party tern modules got incorrect tern directory. thx @ocoka
+
 ## [0.15.0]
 - config view now displays possible tern plugins (WIP)
 - add option to display documentation within the inline function completion

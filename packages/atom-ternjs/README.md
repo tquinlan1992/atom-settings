@@ -7,16 +7,15 @@ Uses suggestion provider by [autocomplete-plus](https://github.com/atom/autocomp
 ## Installation
 
 Configure your project
-* Open any JavaScript file from within you project
+* Open any JavaScript file from within your project
 * Navigate to Packages -> Atom Ternjs -> Configure project
 * The config view appears.
 * Hit "Save & Restart Server" to create/update the .tern-project file
 
-**In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**
+Optional:
+* install the package https://atom.io/packages/hyperclick
 
-**In order to use third party plugins from within your project's ```node_modules``` read the [Third party plugins local](#third-party-plugins-local) section! This is also an alternative if [Third party plugins](#third-party-plugins) aren't working.**
-
-If configure project does not work for you
+If configure project does not work
 * In your project root create a file named .tern-project. See docs @ http://ternjs.net/doc/manual.html#configuration.
 * Restart the server via *Packages -> Atom Ternjs -> Restart server*
 
@@ -26,19 +25,17 @@ Example `.tern-project` file (customize to your own needs):
 {
   "ecmaVersion": 6,
   "libs": [
-    "browser",
-    "jquery"
+    "browser"
   ],
   "loadEagerly": [
     "path/to/your/js/**/*.js"
   ],
   "dontLoad": [
+    "node_modules/**",
     "path/to/your/js/**/*.js"
   ],
   "plugins": {
-    "complete_strings": {
-      "maxLength": 15
-    },
+    "es_modules": {},
     "node": {},
     "doc_comment": {
       "fullDocs": true,
@@ -47,6 +44,10 @@ Example `.tern-project` file (customize to your own needs):
   }
 }
 ```
+
+**In order to use third party plugins read the [Third party plugins](#third-party-plugins) section!**
+
+**In order to use third party plugins from within your project's ```node_modules``` read the [Third party plugins local](#third-party-plugins-local) section! This is also an alternative if [Third party plugins](#third-party-plugins) aren't working.**
 
 ### EcmaVersion
 * 5: use ECMAScript5
@@ -93,7 +94,8 @@ Add the plugin to your .tern-project file:
 }
 ```
 
-Third party plugins are still an issue and sometimes do not work as expected, especially if the plugin is requiring a tern version that does not match the tern version that is used by atom-ternjs.
+Third party plugins are still an issue and sometimes do not work as expected, especially if the plugin requires a tern version that does not match the tern version that is used by atom-ternjs.
+
 Restart the server: *Packages -> Atom Ternjs -> Restart server*
 
 ## Third party plugins local
@@ -129,34 +131,33 @@ Restart Atom.
 
 ## Features
 * Completion (autocompletion triggers automatically), or via the keybindings:
-  * <kbd>strg+space</kbd>
+  * <kbd>ctrl+space</kbd>
   * <kbd>ctrl+alt+space</kbd> (force autocompletion in any context)
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/completion-1.png)
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/completion-2.png)
 * Find references (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find references" or use the keybindings:
-  * <kbd>ctrl+shift+r</kbd> (mac, windows)
-  * <kbd>ctrl+alt+shift+e</kbd> (linux)
+  * <kbd>ctrl+shift+r</kbd> (macOS, Windows)
+  * <kbd>ctrl+alt+shift+e</kbd> (Linux)
 
 Click any item in the generated reference-list and navigate directly to file and position
 
 ![atom-ternjs](http://www.tobias-schubert.com/github/reference-1.png)
 
 * Documentation
-  * Show documentation for the thing under the cursor via <kbd>alt+o</kbd> (mac, windows, linux)
+  * Show documentation for the thing under the cursor via <kbd>alt+o</kbd> (macOS, Windows, Linux)
   ![atom-ternjs](http://www.tobias-schubert.com/github/docs.png)
   * Also displayed if a suggestion with a valid documentation is selected in the autocomplete-plus select-list
 
 * Find definition (set your cursor position to one of variable, function or instance -> open context-menu and trigger "Find definition") or use the keybindings:
-  * <kbd>alt+click</kbd> (mac, windows, linux)
-  * <kbd>ctrl+alt+d</kbd> (mac, windows)
-  * <kbd>ctrl+alt+shift+d</kbd> (linux)
+  * <kbd>cmd+click</kbd> (macOS, Windows, Linux), requires https://atom.io/packages/hyperclick. Since <kbd>cmd+click</kbd> is also used for multi-line editing in macOS you should change the default hyperclick settings.
+  * <kbd>ctrl+alt+shift+d</kbd> (macOS, Windows, Linux)
 
-* Back from definition
-  * <kbd>ctrl+alt+z</kbd> (mac, windows)
-  * <kbd>ctrl+alt+shift+z</kbd> (linux)
+* Navigate back or forward
+  * <kbd>ctrl+shift+cmd+left</kbd> (macOS, Windows, Linux)
+  * <kbd>ctrl+shift+cmd+right</kbd> (macOS, Windows, Linux)
 
 * Rename variable (set your cursor position to a variable -> open context-menu and trigger "Rename") or use the keybindings:
-  * <kbd>ctrl+alt+c</kbd> (mac, windows)
-  * <kbd>ctrl+alt+shift+c</kbd> (linux)
+  * <kbd>ctrl+alt+c</kbd> (macOS, Windows)
+  * <kbd>ctrl+alt+shift+c</kbd> (Linux)

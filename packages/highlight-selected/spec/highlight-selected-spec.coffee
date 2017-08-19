@@ -35,14 +35,14 @@ describe "HighlightSelected", ->
           .then ({mainModule}) ->
             highlightSelected = mainModule
 
-      if hasMinimap
-        waitsForPromise ->
-          atom.packages.activatePackage('minimap').then ({mainModule}) ->
-            minimapModule = mainModule
-        waitsForPromise ->
-          atom.packages.activatePackage('minimap-highlight-selected')
-            .then ({mainModule}) ->
-              minimapHS = mainModule
+      # if hasMinimap
+      #   waitsForPromise ->
+      #     atom.packages.activatePackage('minimap').then ({mainModule}) ->
+      #       minimapModule = mainModule
+      #   waitsForPromise ->
+      #     atom.packages.activatePackage('minimap-highlight-selected')
+      #       .then ({mainModule}) ->
+      #         minimapHS = mainModule
 
       waitsForPromise ->
         atom.workspace.open('sample.coffee').then(
@@ -72,9 +72,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "adds the decoration to all words", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(4)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(4)
 
       it "creates the highlight selected status bar element", ->
         expect(workspaceElement.querySelector('status-bar')).toExist()
@@ -105,10 +104,9 @@ describe "HighlightSelected", ->
           editor.setSelectedBufferRange(range)
           advanceClock(20000)
 
-        it "adds the decoration only no selected words", ->
-          expect(editorElement.shadowRoot
-            .querySelectorAll('.highlight-selected .region')
-            ).toHaveLength(3)
+        it "adds the decoration only on selected words", ->
+          expect(editorElement.querySelectorAll(
+            '.highlight-selected .region')).toHaveLength(3)
 
       describe "when multi lines are selected", ->
         beforeEach ->
@@ -117,10 +115,9 @@ describe "HighlightSelected", ->
           editor.setSelectedBufferRanges([range1, range2])
           advanceClock(20000)
 
-        it "adds the decoration only no selected words", ->
-          expect(editorElement.shadowRoot
-            .querySelectorAll('.highlight-selected .region')
-            ).toHaveLength(2)
+        it "adds the decoration only on selected words", ->
+          expect(editorElement.querySelectorAll(
+            '.highlight-selected .region')).toHaveLength(2)
 
     describe "leading whitespace doesn't get used", ->
       beforeEach ->
@@ -129,9 +126,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "doesn't add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(0)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(0)
 
     describe "will highlight non whole words", ->
       beforeEach ->
@@ -141,9 +137,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "does add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(3)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(3)
 
     describe "will not highlight non whole words", ->
       beforeEach ->
@@ -153,9 +148,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "does add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(2)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(2)
 
     describe "will not highlight less than minimum length", ->
       beforeEach ->
@@ -165,9 +159,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "doesn't add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(0)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(0)
 
     describe "will not highlight words in different case", ->
       beforeEach ->
@@ -176,9 +169,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "does add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(2)
+        expect(editorElement.querySelectorAll('
+          .highlight-selected .region')).toHaveLength(2)
 
     describe "will highlight words in different case", ->
       beforeEach ->
@@ -188,9 +180,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "does add regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(5)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(5)
 
       describe "adds background to selected", ->
         beforeEach ->
@@ -200,9 +191,8 @@ describe "HighlightSelected", ->
           advanceClock(20000)
 
         it "adds the background to all highlights", ->
-          expect(editorElement.shadowRoot
-            .querySelectorAll('.highlight-selected.background .region')
-            ).toHaveLength(4)
+          expect(editorElement.querySelectorAll('.highlight-selected.background
+            .region')).toHaveLength(4)
 
       describe "adds light theme to selected", ->
         beforeEach ->
@@ -212,23 +202,22 @@ describe "HighlightSelected", ->
           advanceClock(20000)
 
         it "adds the background to all highlights", ->
-          expect(editorElement.shadowRoot
-            .querySelectorAll('.highlight-selected.light-theme .region')
-            ).toHaveLength(4)
+          expect(editorElement.querySelectorAll('.highlight-selected.light-theme
+            .region')).toHaveLength(4)
 
-    if hasMinimap
-      describe "minimap highlight selected still works", ->
-        beforeEach ->
-          editor = atom.workspace.getActiveTextEditor()
-          minimap = minimapModule.minimapForEditor(editor)
-
-          spyOn(minimap, 'decorateMarker').andCallThrough()
-          range = new Range(new Point(8, 2), new Point(8, 8))
-          editor.setSelectedBufferRange(range)
-          advanceClock(20000)
-
-        it 'adds a decoration for the selection in the minimap', ->
-          expect(minimap.decorateMarker).toHaveBeenCalled()
+    # if hasMinimap
+    #   describe "minimap highlight selected still works", ->
+    #     beforeEach ->
+    #       editor = atom.workspace.getActiveTextEditor()
+    #       minimap = minimapModule.minimapForEditor(editor)
+    #
+    #       spyOn(minimap, 'decorateMarker').andCallThrough()
+    #       range = new Range(new Point(8, 2), new Point(8, 8))
+    #       editor.setSelectedBufferRange(range)
+    #       advanceClock(20000)
+    #
+    #     it 'adds a decoration for the selection in the minimap', ->
+    #       expect(minimap.decorateMarker).toHaveBeenCalled()
 
   describe "when opening a php file", ->
     beforeEach ->
@@ -260,9 +249,8 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "finds 3 regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(3)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(3)
 
     describe "being able to highlight variables when not selecting '$'", ->
       beforeEach ->
@@ -272,6 +260,5 @@ describe "HighlightSelected", ->
         advanceClock(20000)
 
       it "finds 4 regions", ->
-        expect(editorElement.shadowRoot
-          .querySelectorAll('.highlight-selected .region')
-          ).toHaveLength(4)
+        expect(editorElement.querySelectorAll(
+          '.highlight-selected .region')).toHaveLength(4)

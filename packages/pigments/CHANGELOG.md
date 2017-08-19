@@ -1,3 +1,83 @@
+<a name="v0.40.2"></a>
+# v0.40.2 (2017-08-09)
+
+## Bug Fixes
+
+- Remove atom patching code ([b0015651](https://github.com/abe33/atom-pigments/commit/b0015651cbd7aa31999e0fe14fe923cf9ae5980d), [#313](https://github.com/abe33/atom-pigments/issues/313))
+- Fix horizontal offset not applied to dots when scrolling ([36d79248](https://github.com/abe33/atom-pigments/commit/36d792483dd0a7f88b670cb240d76bccd46d43f8), [#326](https://github.com/abe33/atom-pigments/issues/326))
+
+<a name="v0.40.1"></a>
+# v0.40.1 (2017-07-27)
+
+## Bug Fixes
+
+- Guard against error raised when trying to destroy a gutter on editor destruction ([e17f0cad](https://github.com/abe33/atom-pigments/commit/e17f0cadf7290463a0caa8abccb5a9c8d92bb673))
+- Guard against weird error raised when update gutter decorations ([e0340089](https://github.com/abe33/atom-pigments/commit/e03400896774306ddc16196cec91075c40ae3af8))
+- Fix inconsistent styling of text decorations ([114b05d6](https://github.com/abe33/atom-pigments/commit/114b05d69ecb7da6447f0c15d7788b2afa92c538), [#321](https://github.com/abe33/atom-pigments/issues/321))
+
+<a name="v0.40.0"></a>
+# v0.40.0 (2017-07-25)
+
+## Bug Fixes
+
+- Fix pigments icon size ([477e7d66](https://github.com/abe33/atom-pigments/commit/477e7d66bb4715ccbaa613c12a9521393f52ccac))
+
+## Dependencies Update
+
+- Bump Atom requirements ([573a309f](https://github.com/abe33/atom-pigments/commit/573a309f3c94ed1f3f1151ce8d44adc38d19afa6))
+- Bump serialized data versions ([864ed265](https://github.com/abe33/atom-pigments/commit/864ed26599637d1cb384dea61526d55164fcb080))
+
+<a name="v0.39.0"></a>
+# v0.39.0 (2017-01-24)
+
+## Features
+
+- Add setting to limit the number of decorations in the gutter ([56b27ab6](https://github.com/abe33/atom-pigments/commit/56b27ab692ec98c69a4ab485d0269fd9efa49331), [#273](https://github.com/abe33/atom-pigments/issues/273))
+
+## Bug Fixes
+
+- Fix error raised when using dots decorations ([e9919c67](https://github.com/abe33/atom-pigments/commit/e9919c6759f75f80e8b613cdff0b40e8e50294da), [#264](https://github.com/abe33/atom-pigments/issues/264))
+- Fix display of alternate case in palette view ([0cdc36f6](https://github.com/abe33/atom-pigments/commit/0cdc36f6c23c6e55fe6c107d6874064660d30f70), [#245](https://github.com/abe33/atom-pigments/issues/245))
+
+<a name="v0.38.0"></a>
+# v0.38.0 (2016-11-24)
+
+Remove support for the shadow DOM.
+
+<a name="v0.37.0"></a>
+# v0.37.0 (2016-10-04)
+
+## Features
+
+- Add setting to control reload notifications ([a869c819](https://github.com/abe33/atom-pigments/commit/a869c81906ff9f7ccfa945b9fbc1914856deb477), [#232](https://github.com/abe33/atom-pigments/issues/232))
+
+<a name="v0.36.0"></a>
+# v0.36.0 (2016-09-30)
+
+## Features
+
+- Implement a better reload command ([6fd1f4e3](https://github.com/abe33/atom-pigments/commit/6fd1f4e31b748c958e7708ff5687e2430691fc13))  <br>It will actually clear paths and variables to properly rescan the project
+- Change default marker type to `native-background`
+
+<a name="v0.35.3"></a>
+# v0.35.3 (2016-09-29)
+
+## Bug Fixes
+
+- Fix default colors not always available in context ([122725b0](https://github.com/abe33/atom-pigments/commit/122725b04ccf8f36bab528895246f16cd6a28446))
+
+<a name="v0.35.2"></a>
+# v0.35.2 (2016-09-28)
+
+## Bug Fixes
+
+- Fix autocomplete provider ([8d234c7d](https://github.com/abe33/atom-pigments/commit/8d234c7d618f0c5e8cefa6603c4953f8b0f7418d))
+
+<a name="v0.35.1"></a>
+# v0.35.1 (2016-09-24)
+
+- Remove console log.
+
 <a name="v0.35.0"></a>
 # v0.35.0 (2016-09-22)
 

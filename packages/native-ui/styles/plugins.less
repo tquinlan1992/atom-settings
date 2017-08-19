@@ -1,0 +1,34 @@
+@import "syntax-variables";
+@import "ui-variables";
+
+// Fix #66
+busy-signal.loading-spinner-tiny {
+  background-size: contain;
+}
+
+busy-signal {
+  margin-top: 0;
+}
+
+.linter-status-count {
+  background-color: darken(@base-background-color, 15%);
+  border-radius: @border-radius--base;
+
+  a { // each linter item
+
+    &:not(:last-child) {
+      margin-right: @component-padding/2;
+    }
+
+    // A class like `text-error` gets added to make the status appear in some kind of color. If there are no errors it should look inactive.
+    &:not([class*="text-"]) {
+      color: @text-color-subtle;
+    }
+
+    .icon {
+      position: relative;
+      top: -2px; // vertically center the icon with the text
+      margin-right: @component-padding / 3;
+    }
+  }
+}

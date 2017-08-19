@@ -3,6 +3,7 @@
 import defaulConfig from './config';
 import provider from './atom-ternjs-provider';
 import manager from './atom-ternjs-manager';
+import hyperclick from './atom-ternjs-hyperclick-provider';
 
 class AtomTernjs {
 
@@ -13,7 +14,7 @@ class AtomTernjs {
 
   activate() {
 
-    manager.init();
+    manager.activate();
   }
 
   deactivate() {
@@ -24,6 +25,11 @@ class AtomTernjs {
   provide() {
 
     return provider;
+  }
+
+  provideHyperclick() {
+    
+    return hyperclick;
   }
 }
 

@@ -1,5 +1,19 @@
 ## Change Log
 
+### v0.13.1 (2017/03/24)
+- Optimize load time ([@zertosh])
+
+### v0.13.0 (2017/03/23)
+- Fix not being able to select non whole words ([@richrace])
+- Fix words that should be highlighted in other panes highlighted ([@richrace])
+- Upgraded the API so the `minimap-highlight-selected` package displays the correct markers in each pane ([@richrace])
+
+### v0.12.0 (2017/01/11)
+- Retire :host and ::shadow pseudo-selectors ([@pyrotechnick])
+- Highlight selection across active panes ([@mswiszcz])
+- Fix moving panes ([@richrace])
+- Switches to Marker Layers API ([@dbachko])
+
 ### v0.11.2 (2015/02/02)
 - Add Remove All Markers event ([@richrace])
 - Added `inline-block` class for better compatibility with status bar ([@scippio])
@@ -187,3 +201,7 @@
 [@izuzak]: https://github.com/izuzak
 [@JCCR]: https://github.com/JCCR
 [@scippio]: https://github.com/scippio
+[@mswiszcz]: https://github.com/mswiszcz
+[@dbachko]: https://github.com/dbachko
+[@pyrotechnick]: https://github.com/pyrotechnick
+[@zertosh]: https://github.com/zertosh

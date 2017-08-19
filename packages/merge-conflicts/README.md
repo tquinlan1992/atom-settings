@@ -1,5 +1,9 @@
 # Merge Conflicts
 
+## Deprecation Notice
+
+This package is **deprecated** and subsumed by the [Git and GitHub integration](https://github.atom.io/) that's bundled with Atom starting with [1.18.0-beta0](https://github.com/atom/atom/releases/tag/v1.18.0-beta0). I highly recommend using that instead!
+
 [![Build Status](https://travis-ci.org/smashwilson/merge-conflicts.svg?branch=master)](https://travis-ci.org/smashwilson/merge-conflicts)
 
 Resolve your git merge conflicts in Atom!
@@ -7,6 +11,11 @@ Resolve your git merge conflicts in Atom!
 ![conflict-resolution](https://raw.github.com/smashwilson/merge-conflicts/master/docs/conflict-resolution.gif)
 
 This package detects the conflict markers left by `git merge` and overlays a set of controls for resolving each and navigating among them. Additionally, it displays your progress through a merge.
+
+## Installation
+```bash
+apm install merge-conflicts
+```
 
 ## Features
 

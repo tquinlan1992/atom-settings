@@ -57,16 +57,12 @@ class ColorContext
       @defaultColorVars = {}
 
       for v in @variables
-        console.log v.name, v.value, v.default
         @vars[v.name] = v unless v.default
         @defaultVars[v.name] = v if v.default
 
       for v in @colorVariables
         @colorVars[v.name] = v unless v.default
         @defaultColorVars[v.name] = v if v.default
-
-      console.log @vars
-      console.log @defaultVars
 
     if not @registry.getExpression('pigments:variables')? and @colorVariables.length > 0
       expr = ColorExpression.colorExpressionForColorVariables(@colorVariables)
@@ -163,6 +159,9 @@ class ColorContext
     if @colorVars[value]?
       @usedVariables.push(value)
       @colorVars[value].value
+    else if @defaultColorVars[value]?
+      @usedVariables.push(value)
+      @defaultColorVars[value].value
     else
       value
 

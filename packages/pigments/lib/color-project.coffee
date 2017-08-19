@@ -1,6 +1,6 @@
 [
   ColorBuffer, ColorSearch,
-  Palette, ColorMarkerElement, VariablesCollection,
+  Palette, VariablesCollection,
   PathsLoader, PathsScanner,
   Emitter, CompositeDisposable, Range,
   SERIALIZE_VERSION, SERIALIZE_MARKERS_VERSION, THEME_VARIABLES, ATOM_VARIABLES,
@@ -76,11 +76,6 @@ class ColorProject
     @subscriptions.add atom.config.observe 'pigments.supportedFiletypes', =>
       @updateIgnoredFiletypes()
       @emitter.emit('did-change-ignored-scopes', @getIgnoredScopes())
-
-    @subscriptions.add atom.config.observe 'pigments.markerType', (type) ->
-      if type?
-        ColorMarkerElement ?= require './color-marker-element'
-        ColorMarkerElement.setMarkerType(type)
 
     @subscriptions.add atom.config.observe 'pigments.ignoreVcsIgnoredPaths', =>
       @loadPathsAndVariables()
@@ -174,6 +169,28 @@ class ColorProject
 
     @emitter.emit 'did-destroy', this
     @emitter.dispose()
+
+  reload: ->
+    @initialize().then =>
+      @variables.reset()
+      @paths = []
+      @loadPathsAndVariables()
+    .then =>
+      if atom.config.get('pigments.notifyReloads')
+        atom.notifications.addSuccess("Pigments successfully reloaded", dismissable: atom.config.get('pigments.dismissableReloadNotifications'), description: """Found:
+        - **#{@paths.length}** path(s)
+        - **#{@getVariables().length}** variables(s) including **#{@getColorVariables().length}** color(s)
+        """)
+      else
+        console.log("""Found:
+        - #{@paths.length} path(s)
+        - #{@getVariables().length} variables(s) including #{@getColorVariables().length} color(s)
+        """)
+    .catch (reason) ->
+      detail = reason.message
+      stack = reason.stack
+      atom.notifications.addError("Pigments couldn't be reloaded", {detail, stack, dismissable: true})
+      console.error reason
 
   loadPathsAndVariables: ->
     destroyed = null

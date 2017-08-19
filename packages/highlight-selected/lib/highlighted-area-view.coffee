@@ -1,13 +1,14 @@
-{Range, CompositeDisposable, Emitter} = require 'atom'
-_ = require 'underscore-plus'
+{Range, CompositeDisposable, Emitter, MarkerLayer} = require 'atom'
 StatusBarView = require './status-bar-view'
+escapeRegExp = require './escape-reg-exp'
 
 module.exports =
 class HighlightedAreaView
 
   constructor: ->
     @emitter = new Emitter
-    @views = []
+    @markerLayers = []
+    @resultCount = 0
     @enable()
     @listenForTimeoutChange()
     @activeItemSubscription = atom.workspace.onDidChangeActivePaneItem =>
@@ -25,10 +26,23 @@ class HighlightedAreaView
     @statusBarTile = null
 
   onDidAddMarker: (callback) =>
+    Grim = require 'grim'
+    Grim.deprecate("Please do not use. This method will be removed.")
     @emitter.on 'did-add-marker', callback
 
+  onDidAddSelectedMarker: (callback) =>
+    Grim = require 'grim'
+    Grim.deprecate("Please do not use. This method will be removed.")
+    @emitter.on 'did-add-selected-marker', callback
+
+  onDidAddMarkerForEditor: (callback) =>
+    @emitter.on 'did-add-marker-for-editor', callback
+
+  onDidAddSelectedMarkerForEditor: (callback) =>
+    @emitter.on 'did-add-selected-marker-for-editor', callback
+
   onDidRemoveAllMarkers: (callback) =>
-    @emitter.on 'did-remove-all-markers', callback
+    @emitter.on 'did-remove-marker-layer', callback
 
   disable: =>
     @disabled = true
@@ -71,19 +85,27 @@ class HighlightedAreaView
   getActiveEditor: ->
     atom.workspace.getActiveTextEditor()
 
+  getActiveEditors: ->
+    atom.workspace.getPanes().map (pane) ->
+      activeItem = pane.activeItem
+      activeItem if activeItem and activeItem.constructor.name == 'TextEditor'
+
   handleSelection: =>
     @removeMarkers()
 
     return if @disabled
 
     editor = @getActiveEditor()
+
     return unless editor
     return if editor.getLastSelection().isEmpty()
-    return unless @isWordSelected(editor.getLastSelection())
+
+    if atom.config.get('highlight-selected.onlyHighlightWholeWords')
+      return unless @isWordSelected(editor.getLastSelection())
 
     @selections = editor.getSelections()
 
-    text = _.escapeRegExp(@selections[0].getText())
+    text = escapeRegExp(@selections[0].getText())
     regex = new RegExp("\\S*\\w*\\b", 'gi')
     result = regex.exec(text)
 
@@ -97,31 +119,54 @@ class HighlightedAreaView
     if atom.config.get('highlight-selected.ignoreCase')
       regexFlags = 'gi'
 
-    range =  [[0, 0], editor.getEofBufferPosition()]
-
     @ranges = []
     regexSearch = result[0]
 
     if atom.config.get('highlight-selected.onlyHighlightWholeWords')
       if regexSearch.indexOf("\$") isnt -1 \
-      and editor.getGrammar()?.name is 'PHP'
+      and editor.getGrammar()?.name in ['PHP', 'HACK']
         regexSearch = regexSearch.replace("\$", "\$\\b")
       else
         regexSearch =  "\\b" + regexSearch
       regexSearch = regexSearch + "\\b"
 
-    resultCount = 0
+    @resultCount = 0
+    if atom.config.get('highlight-selected.highlightInPanes')
+      @getActiveEditors().forEach (editor) =>
+        @highlightSelectionInEditor(editor, regexSearch, regexFlags)
+    else
+      @highlightSelectionInEditor(editor, regexSearch, regexFlags)
+
+    @statusBarElement?.updateCount(@resultCount)
+
+  highlightSelectionInEditor: (editor, regexSearch, regexFlags) ->
+    markerLayer = editor?.addMarkerLayer()
+    return unless markerLayer?
+    markerLayerForHiddenMarkers = editor.addMarkerLayer()
+    @markerLayers.push(markerLayer)
+    @markerLayers.push(markerLayerForHiddenMarkers)
+
+    range =  [[0, 0], editor.getEofBufferPosition()]
+
     editor.scanInBufferRange new RegExp(regexSearch, regexFlags), range,
       (result) =>
-        resultCount += 1
-        unless @showHighlightOnSelectedWord(result.range, @selections)
-          marker = editor.markBufferRange(result.range)
-          decoration = editor.decorateMarker(marker,
-            {type: 'highlight', class: @makeClasses()})
-          @views.push marker
+        @resultCount += 1
+        if @showHighlightOnSelectedWord(result.range, @selections)
+          marker = markerLayerForHiddenMarkers.markBufferRange(result.range)
+          @emitter.emit 'did-add-selected-marker', marker
+          @emitter.emit 'did-add-selected-marker-for-editor',
+            marker: marker
+            editor: editor
+        else
+          marker = markerLayer.markBufferRange(result.range)
           @emitter.emit 'did-add-marker', marker
-
-    @statusBarElement?.updateCount(resultCount)
+          @emitter.emit 'did-add-marker-for-editor',
+            marker: marker
+            editor: editor
+    editor.decorateMarkerLayer(markerLayer, {
+      type: 'highlight',
+      class: @makeClasses()
+    })
 
   makeClasses: ->
     className = 'highlight-selected'
@@ -146,14 +191,11 @@ class HighlightedAreaView
     outcome
 
   removeMarkers: =>
-    return unless @views?
-    return if @views.length is 0
-    for view in @views
-      view.destroy()
-      view = null
-    @views = []
-    @statusBarElement?.updateCount(@views.length)
-    @emitter.emit 'did-remove-all-markers'
+    @markerLayers.forEach (markerLayer) ->
+      markerLayer.destroy()
+    @markerLayers = []
+    @statusBarElement?.updateCount(0)
+    @emitter.emit 'did-remove-marker-layer'
 
   isWordSelected: (selection) ->
     if selection.getBufferRange().isSingleLine()
@@ -161,10 +203,10 @@ class HighlightedAreaView
       lineRange = @getActiveEditor().bufferRangeForBufferRow(
         selectionRange.start.row)
       nonWordCharacterToTheLeft =
-        _.isEqual(selectionRange.start, lineRange.start) or
+        selectionRange.start.isEqual(lineRange.start) or
         @isNonWordCharacterToTheLeft(selection)
       nonWordCharacterToTheRight =
-        _.isEqual(selectionRange.end, lineRange.end) or
+        selectionRange.end.isEqual(lineRange.end) or
         @isNonWordCharacterToTheRight(selection)
 
       nonWordCharacterToTheLeft and nonWordCharacterToTheRight
@@ -173,7 +215,7 @@ class HighlightedAreaView
 
   isNonWordCharacter: (character) ->
     nonWordCharacters = atom.config.get('editor.nonWordCharacters')
-    new RegExp("[ \t#{_.escapeRegExp(nonWordCharacters)}]").test(character)
+    new RegExp("[ \t#{escapeRegExp(nonWordCharacters)}]").test(character)
 
   isNonWordCharacterToTheLeft: (selection) ->
     selectionStart = selection.getBufferRange().start

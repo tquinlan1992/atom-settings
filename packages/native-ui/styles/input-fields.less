@@ -1,39 +1,53 @@
-.input-block-item atom-text-editor.mini,
-.controls atom-text-editor.mini,
-atom-panel atom-text-editor[mini],
-.settings-view select.form-control,
-.editor-container atom-text-editor.mini {
-  font-size: 1.15rem;
+
+.editor-container atom-text-editor,
+.settings-view atom-text-editor,
+.modal atom-text-editor {
+  font-size: @input-font-size;
   box-shadow: none;
-  border-color: @input-border-color;
+  border: 1px solid @input-border-color;
   border-radius: @border-radius--base;
-  padding: 0 8px;
-  background: @text-color-selected;
+  padding: 0 round(@component-padding/1.5);
+  background-color: @input-background-color;
   transition: box-shadow @transition--default;
+  color: @text-color;
+
+  .selection .region {
+    background-color: rgba(0, 0, 0, .2);
+  }
+
+  .cursor {
+    width: 1/@em !important;
+    border-left-width: 1/@em !important;
+    height: 18px !important;
+    margin-top: 4px;
+    border-color: @text-color;
+  }
 
   &.is-focused {
     border-color: @input-border-color-active;
     color: @text-color-highlight;
     box-shadow: 0 0 0 3px @input-outline-color-active;
-  }
-}
 
-.tree-view-dialog atom-text-editor[mini] {
+    .placeholder-text {
+      color: @text-color-subtle;
+    }
+
+    // Background of highlighted text
+    .selection .region {
+      background-color: lighten(@background-color-info, 30%);
+    }
+  } // .is-focused
+} // editor.mini
+
+.tree-view-dialog .editor.mini {
   max-height: 100%;
 }
 
-atom-text-editor[mini] .cursor,
-atom-text-editor[mini]::shadow .cursor {
-  border-width: 1px;
-  height: 18px !important;
-  margin-top: 4px;
-}
-
+// A `select` input field
 .settings-view select.form-control,
-.settings-view select.form-control:hover,
-.settings-view select.form-control:focus {
+.settings-view select.form-control:hover {
   height: 27px;
   border: 1px solid @button-border-color;
-  border-bottom: 1px solid @button-border-color--bottom;
-  background: #fff;
+  background: @input-background-color;
+  box-shadow: none; // overwrite
 }

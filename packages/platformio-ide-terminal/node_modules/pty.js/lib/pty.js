@@ -15,8 +15,7 @@ try {
   pty = require(path.join('..', 'build', 'Release', 'pty.node'));
 } catch(e) {
   console.warn(e.message);
-  pty = require(path.join('..', 'bin', process.platform,
-    process.arch + '.m' + process.versions.modules + '.node'));
+  pty = require(path.join('..', 'bin', process.platform, process.arch + '_m' + process.versions.modules, 'pty.node'));
 };
 
 var version = process.versions.node.split('.').map(function(n) {

@@ -10,6 +10,13 @@ import minimatch from 'minimatch';
 import uuid from 'node-uuid';
 import resolveFrom from 'resolve-from';
 import packageConfig from './atom-ternjs-package-config';
+import {defaultServerConfig} from '../config/tern-config';
+
+import {
+  clone
+} from 'underscore-plus';
+
+const maxPendingRequests = 50;
 
 export default class Server {
 
@@ -22,21 +29,12 @@ export default class Server {
     this.resolves = {};
     this.rejects = {};
 
+    this.pendingRequest = 0;
+
     this.projectDir = projectRoot;
     this.distDir = path.resolve(__dirname, '../node_modules/tern');
 
-    this.defaultConfig = {
-
-      libs: [],
-      loadEagerly: false,
-      plugins: {
-
-        doc_comment: true
-      },
-      ecmaScript: true,
-      ecmaVersion: 6,
-      dependencyBudget: 20000
-    };
+    this.defaultConfig = clone(defaultServerConfig);
 
     const homeDir = process.env.HOME || process.env.USERPROFILE;
 
@@ -105,20 +103,26 @@ export default class Server {
 
   onError(e) {
 
-    atom.notifications.addError(`Child process error: ${e}`, {
-
-      dismissable: true
-    });
+    this.restart(`Child process error: ${e}`);
   }
 
-  onDisconnect(e) {
+  onDisconnect() {
 
-    console.warn(e);
+    console.warn('child process disconnected.');
   }
 
   request(type, data) {
 
+    if (this.pendingRequest >= maxPendingRequests) {
+
+      this.restart('Max number of pending requests reached. Restarting server...');
+
+      return;
+    }
+
     let requestID = uuid.v1();
+
+    this.pendingRequest++;
 
     return new Promise((resolve, reject) => {
 
@@ -155,49 +159,49 @@ export default class Server {
     });
   }
 
+  restart(message) {
+
+    atom.notifications.addError(message || 'Restarting Server...', {
+
+      dismissable: false
+    });
+
+    manager.destroyServer(this.projectDir);
+    manager.startServer(this.projectDir);
+  }
+
   onWorkerMessage(e) {
 
     if (e.error && e.error.isUncaughtException) {
 
-      atom.notifications.addError(`UncaughtException: ${e.error.message}. Restarting Server...`, {
-
-        dismissable: false
-      });
-
-      for (const key in this.rejects) {
-
-        this.rejects[key]({});
-      }
-
-      this.resolves = {};
-      this.rejects = {};
-
-      manager.restartServer();
+      this.restart(`UncaughtException: ${e.error.message}. Restarting Server...`);
 
       return;
     }
 
     const isError = e.error !== 'null' && e.error !== 'undefined';
+    const id = e.id;
+
+    if (!id) {
+
+      console.error('no id given', e);
+
+      return;
+    }
 
     if (isError) {
 
-      console.error(e);
+      this.rejects[id] && this.rejects[id](e.error);
+
+    } else {
+
+      this.resolves[id] && this.resolves[id](e.data);
     }
 
-    if (!e.type && this.resolves[e.id]) {
+    delete this.resolves[id];
+    delete this.rejects[id];
 
-      if (isError) {
-
-        this.rejects[e.id](e.error);
-
-      } else {
-
-        this.resolves[e.id](e.data);
-      }
-
-      delete this.resolves[e.id];
-      delete this.rejects[e.id];
-    }
+    this.pendingRequest--;
   }
 
   destroy() {
@@ -207,8 +211,24 @@ export default class Server {
       return;
     }
 
-    this.child.disconnect();
-    this.child = undefined;
+    for (const key in this.rejects) {
+
+      this.rejects[key]('Server is being destroyed. Rejecting.');
+    }
+
+    this.resolves = {};
+    this.rejects = {};
+
+    this.pendingRequest = 0;
+
+    try {
+
+      this.child.disconnect();
+
+    } catch (error) {
+
+      console.error(error);
+    }
   }
 
   readJSON(fileName) {
@@ -226,11 +246,12 @@ export default class Server {
 
     } catch (e) {
 
-      atom.notifications.addError(`Bad JSON in ${fileName}: ${e.message}`, {
+      atom.notifications.addError(
+        `Bad JSON in ${fileName}: ${e.message}. Please restart atom after the file is fixed. This issue isn't fully covered yet.`,
+        { dismissable: true }
+      );
 
-        dismissable: true
-      });
-      this.destroy();
+      manager.destroyServer(this.projectDir);
     }
   }
 

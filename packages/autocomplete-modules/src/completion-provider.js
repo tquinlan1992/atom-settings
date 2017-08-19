@@ -9,7 +9,7 @@ const get = require('lodash.get');
 const findBabelConfig = require('find-babel-config');
 const internalModules = require('./utils/internal-modules');
 
-const LINE_REGEXP = /require|import|export\s+(?:\*|{?[a-zA-Z0-9_$,\s]+}?)+\s+from|}\s*from\s*['"]/;
+const LINE_REGEXP = /require|import|export\s+(?:\*|{[a-zA-Z0-9_$,\s]+})+\s+from|}\s*from\s*['"]/;
 const SELECTOR = [
   '.source.js .string.quoted',
 
@@ -92,7 +92,7 @@ class CompletionProvider {
 
   lookupLocal(prefix, dirname) {
     let filterPrefix = prefix.replace(path.dirname(prefix), '').replace('/', '');
-    if (filterPrefix[filterPrefix.length - 1] === '/') {
+    if (prefix[prefix.length - 1] === '/') {
       filterPrefix = '';
     }
 
@@ -113,7 +113,7 @@ class CompletionProvider {
     ).map((pathname) => ({
       text: includeExtension ? pathname : this.normalizeLocal(pathname),
       displayText: pathname,
-      type: 'package'
+      type: 'import'
     })).then(
       (suggestions) => this.filterSuggestions(filterPrefix, suggestions)
     );
@@ -144,7 +144,8 @@ class CompletionProvider {
       (libs) => [...internalModules, ...libs]
     ).map((lib) => ({
       text: lib,
-      type: 'package'
+      replacementPrefix: prefix,
+      type: 'import'
     })).then(
       (suggestions) => this.filterSuggestions(prefix, suggestions)
     );
@@ -159,14 +160,21 @@ class CompletionProvider {
     const vendors = atom.config.get('autocomplete-modules.vendors');
     const webpackConfig = this.fetchWebpackConfig(projectPath);
 
+    // Webpack v2
+    const webpackModules = get(webpackConfig, 'resolve.modules', []);
+
+    // Webpack v1
     const webpackRoot = get(webpackConfig, 'resolve.root', '');
-    let moduleSearchPaths = get(webpackConfig, 'resolve.modulesDirectories', []);
+    let moduleSearchPaths = get(webpackConfig, 'resolve.modulesDirectories', webpackModules);
     moduleSearchPaths = moduleSearchPaths.filter(
       (item) => vendors.indexOf(item) === -1
     );
 
-    return Promise.all(moduleSearchPaths.map(
-      (searchPath) => this.lookupLocal(prefix, path.join(webpackRoot, searchPath))
+    return Promise.all(moduleSearchPaths.concat(webpackRoot).map(
+      (searchPath) => this.lookupLocal(
+        prefix,
+        path.isAbsolute(searchPath) ? searchPath : path.join(projectPath, searchPath)
+      )
     )).then(
       (suggestions) => [].concat(...suggestions)
     );

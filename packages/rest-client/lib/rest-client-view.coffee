@@ -1,6 +1,7 @@
 {$, ScrollView} = require 'atom-space-pen-views'
 {Emitter} = require 'atom'
 querystring = require 'querystring'
+mime = require 'mime-types'
 
 RestClientResponse = require './rest-client-response'
 RestClientEditor = require './rest-client-editor'
@@ -55,6 +56,8 @@ saved_requests =
   button: '#rest-client-saved-toggle'
   list: '#rest-client-saved-requests'
 
+nameOf = (selector) -> selector.slice(1)
+
 module.exports =
 class RestClientView extends ScrollView
   @content: ->
@@ -64,29 +67,29 @@ class RestClientView extends ScrollView
         @div class: 'block rest-client-action-btns', =>
           @div class: 'block', =>
             @div class: 'btn-group btn-group-lg', =>
-              @button class: "btn btn-lg #{rest_form.save_btn.split('.')[1]}", 'Save'
-              @button class: "btn btn-lg #{rest_form.clear_btn.split('.')[1]}", 'Clear'
-              @button class: "btn btn-lg #{rest_form.send_btn.split('.')[1]}", 'Send'
+              @button class: "btn btn-lg #{nameOf rest_form.save_btn}", 'Save'
+              @button class: "btn btn-lg #{nameOf rest_form.clear_btn}", 'Clear'
+              @button class: "btn btn-lg #{nameOf rest_form.send_btn}", 'Send'
 
-        @input type: 'text', class: "field #{rest_form.url.split('.')[1]}", autofocus: 'true'
+        @input type: 'text', class: "field #{nameOf rest_form.url}", autofocus: 'true'
 
         # methods
         @div class: 'btn-group btn-group-sm', =>
           for method in RestClientHttp.METHODS
             if method is 'get'
-              @button class: "btn selected #{rest_form.method.split('.')[1]}-#{method}", method.toUpperCase()
+              @button class: "btn selected #{nameOf rest_form.method}-#{method}", method.toUpperCase()
             else
-              @button class: "btn #{rest_form.method.split('.')[1]}-#{method}", method.toUpperCase()
+              @button class: "btn #{nameOf rest_form.method}-#{method}", method.toUpperCase()
 
         # Recent requests
-        @div id: "#{recent_requests.block.split('#')[1]}", =>
-          @button id: "#{recent_requests.button.split('#')[1]}", class: "btn", 'Recent requests'
-          @ul id: "#{recent_requests.list.split('#')[1]}", style: 'display: none;'
+        @div id: "#{nameOf recent_requests.block}", =>
+          @button id: "#{nameOf recent_requests.button}", class: "btn", 'Recent requests'
+          @ul id: "#{nameOf recent_requests.list}", style: 'display: none;'
 
         # Saved requests
-        @div id: "#{saved_requests.block.split('#')[1]}", =>
-          @button id: "#{saved_requests.button.split('#')[1]}", class: "btn", 'Saved requests'
-          @ul id: "#{saved_requests.list.split('#')[1]}", style: 'display: none;'
+        @div id: "#{nameOf saved_requests.block}", =>
+          @button id: "#{nameOf saved_requests.button}", class: "btn", 'Saved requests'
+          @ul id: "#{nameOf saved_requests.list}", style: 'display: none;'
 
         # Headers
         @div class: 'rest-client-headers-container', =>
@@ -97,12 +100,12 @@ class RestClientView extends ScrollView
             @div class: 'btn-group btn-group-lg', =>
               @button class: 'btn selected', 'Raw'
 
-            @textarea class: "field #{rest_form.headers.split('.')[1]}", rows: 7
+            @textarea class: "field #{nameOf rest_form.headers}", rows: 7
             @strong 'Strict SSL'
-            @input type: 'checkbox', class: "field #{rest_form.strict_ssl.split('.')[1]}", checked: true
+            @input type: 'checkbox', class: "field #{nameOf rest_form.strict_ssl}", checked: true
 
             @strong null, "Proxy server"
-            @input type: 'text', class: "field #{rest_form.proxy_server.split('.')[1]}"
+            @input type: 'text', class: "field #{nameOf rest_form.proxy_server}"
 
         # Payload
         @div class: 'rest-client-payload-container', =>
@@ -110,32 +113,33 @@ class RestClientView extends ScrollView
             @h5 class: 'header-expanded', 'Payload'
 
           @div class: 'rest-client-payload-body', =>
-            @div class: "text-info lnk float-right #{rest_form.decode_payload.split('.')[1]}", 'Decode payload '
+            @div class: "text-info lnk float-right #{nameOf rest_form.decode_payload}", 'Decode payload '
             @div class: "buffer float-right", '|'
-            @div class: "text-info lnk float-right #{rest_form.encode_payload.split('.')[1]}", 'Encode payload'
+            @div class: "text-info lnk float-right #{nameOf rest_form.encode_payload}", 'Encode payload'
             @div class: 'btn-group btn-group-lg', =>
               @button class: 'btn selected', 'Raw'
 
-            @textarea class: "field #{rest_form.payload.split('.')[1]}", rows: 7
+            @textarea class: "field #{nameOf rest_form.payload}", rows: 7
 
       # Result
       @div class: 'rest-client-result-container padded', =>
-        @a class: "#{rest_form.result_link.split('.')[1]}", 'Result'
+        @a class: "#{nameOf rest_form.result_link}", 'Result'
         @span ' | '
-        @a class: "#{rest_form.result_headers_link.split('.')[1]}", 'Headers'
+        @a class: "#{nameOf rest_form.result_headers_link}", 'Headers'
         @span ' | '
-        @span class: "#{rest_form.status.split('.')[1]}"
+        @span class: "#{nameOf rest_form.status}"
+        @span class: "text-info lnk #{nameOf rest_form.open_in_editor}", 'Open in separate editor'
 
-        @span class: "#{rest_form.loading.split('.')[1]} loading loading-spinner-small inline-block", style: 'display: none;'
-        @pre class: "#{rest_form.result_headers.split('.')[1]}", ""
-        @pre class: "#{rest_form.result.split('.')[1]}", "#{RestClientResponse.DEFAULT_RESPONSE}"
-        @div class: "text-info lnk #{rest_form.open_in_editor.split('.')[1]}", 'Open in separate editor'
+        @span class: "#{nameOf rest_form.loading} loading loading-spinner-small inline-block", style: 'display: none;'
+        @pre class: "#{nameOf rest_form.result_headers}", ""
+        @pre class: "#{nameOf rest_form.result}", "#{RestClientResponse.DEFAULT_RESPONSE}"
 
   initialize: ->
     @COLLECTIONS_PATH = "#{PACKAGE_PATH}/collections.json"
     @RECENT_REQUESTS_PATH = "#{PACKAGE_PATH}/recent.json"
 
     @lastRequest = null
+    @lastResponse = null
 
     @recentRequests = new RestClientPersist(@RECENT_REQUESTS_PATH)
     @recentRequests.setRequestFileLimit(RECENT_REQUESTS_FILE_LIMIT)
@@ -194,9 +198,12 @@ class RestClientView extends ScrollView
 
   openInEditor: ->
     textResult = $(rest_form.result).text()
-    file_name = "#{current_method} - #{$(rest_form.url).val()}"
-    editor = new RestClientEditor(textResult, file_name)
+    editor = new RestClientEditor(textResult, @constructFileName())
     editor.open()
+
+  constructFileName: ->
+    extension = mime.extension(@lastResponse.headers['content-type'])
+    "#{@lastRequest.method} #{@lastRequest.url}#{'.' + extension if extension}"
 
   encodePayload: ->
     $(rest_form.payload).val(
@@ -221,7 +228,7 @@ class RestClientView extends ScrollView
     $(rest_form.result).text(RestClientResponse.DEFAULT_RESPONSE)
 
   getHeaders: ->
-    headers = []
+    headers = {}
     custom_headers = $(rest_form.headers).val().split('\n')
 
     for custom_header in custom_headers
@@ -267,6 +274,7 @@ class RestClientView extends ScrollView
       body: @getRequestBody()
 
   onResponse: (error, response, body) =>
+    @setLastResponse(response)
     if !error
       statusMessage = response.statusCode + " " + response.statusMessage
 
@@ -385,6 +393,9 @@ class RestClientView extends ScrollView
 
   setLastRequest: (request) =>
     @lastRequest = request
+
+  setLastResponse: (response) =>
+    @lastResponse = response
 
   getHeadersAsString: (headers)  ->
     output = ''

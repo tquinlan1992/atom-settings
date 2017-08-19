@@ -1,8 +1,55 @@
 {
-  "main": "./index.coffee",
-  "name": "pretty-json",
-  "version": "1.6.0",
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+        "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42573-5h86bf.dvqovwjyvi"
+    ]
+  ],
+  "_from": "../d-117717-42573-227psx.nzln5ewmi/package.tgz",
+  "_id": "pretty-json@1.6.4",
+  "_inCache": true,
+  "_location": "/pretty-json",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+    "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117717-42573-227psx.nzln5ewmi/package.tgz",
+  "_shasum": "aafd4f3b8f80e11b7659d08266b5debda5a4c051",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42573-227psx.nzln5ewmi/package.tgz",
+  "_where": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42573-5h86bf.dvqovwjyvi",
+  "bugs": {
+    "url": "https://github.com/federomero/pretty-json/issues"
+  },
+  "dependencies": {
+    "bignumber.js": "^2.4.0",
+    "json-bigint": "^0.2.3",
+    "json-stable-stringify": "^1.0.1",
+    "jsonminify": "^0.4.1"
+  },
   "description": "Format JSON",
+  "devDependencies": {},
+  "engines": {
+    "atom": "*"
+  },
+  "homepage": "https://github.com/federomero/pretty-json#readme",
   "keywords": [
     "JSON",
     "format",
@@ -11,31 +58,18 @@
     "minify",
     "uglify"
   ],
+  "license": "MIT",
+  "main": "./index.coffee",
+  "name": "pretty-json",
+  "optionalDependencies": {},
+  "readme": "# Pretty JSON\n\n[![apm package][apm-ver-link]][releases]\n[![travis-ci][travis-ci-badge]][travis-ci]\n[![david][david-badge]][david]\n[![download][dl-badge]][apm-pkg-link]\n[![mit][mit-badge]][mit]\n\n[Atom](http://atom.io/) package for automatically formatting JSON documents.\n\n![img_usage][img_usage]\n\n# Keyboard Command Shortcuts\n\nThis package does not by default provide any keyboard command shortcuts. There's no way to know what\nkeyboard shortcuts are even available on *your* machine. For example, on my machine I could map the\n`prettify` command to `shift-cmd-j`. However if *you* have the popular `atom-script` package\ninstalled on your machine, then there would be a conflict because that package also wants to use\nthat same keyboard shortcut. However, all is not lost!\n\nAtom itself already provides you with everything you need to\n[create your own custom keymaps][keymaps]. For example, the following `keymap.cson` would add a\nshortcut for the Prettify command:\n\n```cson\n'atom-text-editor':\n  'shift-cmd-j': 'pretty-json:prettify'\n```\n\n## List of Commands Provided by Pretty JSON\n\nMap any of the following commands to your own keyboard shortcuts as described above.\n\n- `pretty-json:prettify`\n- `pretty-json:minify`\n- `pretty-json:sort-and-prettify`\n- `pretty-json:jsonify-literal-and-prettify`\n- `pretty-json:jsonify-literal-and-sort-and-prettify`\n\n# General Usage\n\nSelect the text to format and then execute the Pretty JSON `prettify` command. For JSON files,\nformat the entire file automatically without need to first select the text. Minify and sorting\ncommands are available too.\n\nThis plugin will post a notification to Atom if there is a parse error in the JSON. Disable warnings\nin this plugin's settings panel if you do not desire this feature.\n\n# JSON Linter\n\nTo proactively avoid JSON errors, consider using a linter for JSON, such as the delightful\n[linter-jsonlint](https://atom.io/packages/linter-jsonlint).\n\n---\n\n[MIT][mit] © [lexicalunit][lexicalunit], [federomero][federomero] et [al][contributors]\n\n[mit]:              http://opensource.org/licenses/MIT\n[lexicalunit]:      http://github.com/lexicalunit\n[federomero]:       http://github.com/federomero\n[contributors]:     https://github.com/federomero/pretty-json/graphs/contributors\n[releases]:         https://github.com/federomero/pretty-json/releases\n[mit-badge]:        https://img.shields.io/apm/l/pretty-json.svg\n[apm-pkg-link]:     https://atom.io/packages/pretty-json\n[apm-ver-link]:     https://img.shields.io/apm/v/pretty-json.svg\n[dl-badge]:         http://img.shields.io/apm/dm/pretty-json.svg\n[travis-ci-badge]:  https://travis-ci.org/federomero/pretty-json.svg?branch=master\n[travis-ci]:        https://travis-ci.org/federomero/pretty-json\n[david-badge]:      https://david-dm.org/federomero/pretty-json.svg\n[david]:            https://david-dm.org/federomero/pretty-json\n[keymaps]:          http://flight-manual.atom.io/using-atom/sections/basic-customization/#customizing-keybindings\n\n[img_usage]:        http://i.imgur.com/Nd4GvtP.gif\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/federomero/pretty-json.git"
   },
-  "license": "MIT",
-  "engines": {
-    "atom": "*"
-  },
-  "dependencies": {
-    "bignumber.js": "^2.3.0",
-    "json-bigint": "^0.2.0",
-    "json-stable-stringify": "^1.0.1",
-    "jsonminify": "^0.4.1"
-  },
   "scripts": {},
-  "readme": "# Pretty JSON\n\n[![apm package][apm-ver-link]][releases]\n[![][travis-ci-badge]][travis-ci]\n[![][david-badge]][david]\n[![][dl-badge]][apm-pkg-link]\n[![][mit-badge]][mit]\n\n[Atom](http://atom.io/) plugin to format JSON documents.\n\n![](http://i.imgur.com/Nd4GvtP.gif)\n\nSelect the text to format and then execute the Pretty JSON `prettify` command. For JSON files, format the entire file automatically without need to first select the text. Minify and sorting commands are available too.\n\nThis plugin will post a notification to Atom if there is a parse error in the JSON. Disable warnings in this plugin's settings panel if you do not desire this feature.\n\nTo proactively avoid JSON errors, consider using a linter for JSON, such as the delightful [linter-jsonlint](https://atom.io/packages/linter-jsonlint).\n\n---\n\n[MIT][mit] © [federomero][author] et [al][contributors]\n\n[mit]:              http://opensource.org/licenses/MIT\n[author]:           http://github.com/federomero\n[contributors]:     https://github.com/federomero/pretty-json/graphs/contributors\n[releases]:         https://github.com/federomero/pretty-json/releases\n[mit-badge]:        https://img.shields.io/apm/l/pretty-json.svg\n[apm-pkg-link]:     https://atom.io/packages/pretty-json\n[apm-ver-link]:     https://img.shields.io/apm/v/pretty-json.svg\n[dl-badge]:         http://img.shields.io/apm/dm/pretty-json.svg\n[travis-ci-badge]:  https://travis-ci.org/federomero/pretty-json.svg?branch=master\n[travis-ci]:        https://travis-ci.org/federomero/pretty-json\n[david-badge]:      https://david-dm.org/federomero/pretty-json.svg\n[david]:            https://david-dm.org/federomero/pretty-json\n",
-  "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/federomero/pretty-json/issues"
-  },
-  "homepage": "https://github.com/federomero/pretty-json#readme",
-  "_id": "pretty-json@1.6.0",
-  "_shasum": "ce22f12dcaa9b306e27806ef33f95536ab7d7cd3",
-  "_resolved": "file:../d-116720-9545-r01dz9/package.tgz",
-  "_from": "../d-116720-9545-r01dz9/package.tgz",
+  "version": "1.6.4",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -46,12 +80,12 @@
       },
       {
         "name": "json-bigint",
-        "version": "0.2.0",
+        "version": "0.2.3",
         "path": "node_modules/json-bigint/index.js"
       },
       {
         "name": "bignumber.js",
-        "version": "1.1.1",
+        "version": "4.0.2",
         "path": "node_modules/json-bigint/node_modules/bignumber.js/bignumber.js"
       },
       {
@@ -62,7 +96,7 @@
       {
         "name": "jsonify",
         "version": "0.0.0",
-        "path": "node_modules/json-stable-stringify/node_modules/jsonify/index.js"
+        "path": "node_modules/jsonify/index.js"
       },
       {
         "name": "jsonminify",
@@ -75,10 +109,11 @@
         "coffeelint.json",
         "node_modules/bignumber.js/bower.json",
         "node_modules/bignumber.js/package.json",
+        "node_modules/json-bigint/node_modules/bignumber.js/bower.json",
         "node_modules/json-bigint/node_modules/bignumber.js/package.json",
         "node_modules/json-bigint/package.json",
-        "node_modules/json-stable-stringify/node_modules/jsonify/package.json",
         "node_modules/json-stable-stringify/package.json",
+        "node_modules/jsonify/package.json",
         "node_modules/jsonminify/.jsdoc3.json",
         "node_modules/jsonminify/package.json",
         "node_modules/jsonminify/report/files/minify_json_js/report.history.json",
@@ -98,20 +133,14 @@
         "node_modules/json-bigint/lib/stringify.js",
         "node_modules/json-bigint/node_modules/bignumber.js/bignumber.js",
         "node_modules/json-bigint/node_modules/bignumber.js/bignumber.min.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/bigtime-OOM.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/bigtime.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/lib/bigdecimal_GWT/bigdecimal.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/lib/bigdecimal_GWT/bugs.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/lib/bigdecimal_ICU4J/BigDecimal-all-last.js",
-        "node_modules/json-bigint/node_modules/bignumber.js/perf/lib/bigdecimal_ICU4J/BigDecimal-all-last.min.js",
         "node_modules/json-stable-stringify/example/key_cmp.js",
         "node_modules/json-stable-stringify/example/nested.js",
         "node_modules/json-stable-stringify/example/str.js",
         "node_modules/json-stable-stringify/example/value_cmp.js",
         "node_modules/json-stable-stringify/index.js",
-        "node_modules/json-stable-stringify/node_modules/jsonify/index.js",
-        "node_modules/json-stable-stringify/node_modules/jsonify/lib/parse.js",
-        "node_modules/json-stable-stringify/node_modules/jsonify/lib/stringify.js",
+        "node_modules/jsonify/index.js",
+        "node_modules/jsonify/lib/parse.js",
+        "node_modules/jsonify/lib/stringify.js",
         "node_modules/jsonminify/docs/scripts/linenumber.js",
         "node_modules/jsonminify/docs/scripts/prettify/lang-css.js",
         "node_modules/jsonminify/docs/scripts/prettify/prettify.js",
@@ -166,8 +195,8 @@
           "spec"
         ],
         "dependencies": {
-          "bignumber.js": "^2.3.0",
-          "json-bigint": "^0.2.0",
+          "bignumber.js": "^2.4.0",
+          "json-bigint": "^0.2.3",
           "json-stable-stringify": "^1.0.1",
           "jsonminify": "^0.4.1"
         }
@@ -179,7 +208,7 @@
           "node_modules/json-bigint/test"
         ],
         "dependencies": {
-          "bignumber.js": "~1.1.1"
+          "bignumber.js": "^4.0.0"
         }
       },
       {

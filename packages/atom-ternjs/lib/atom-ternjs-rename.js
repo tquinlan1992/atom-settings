@@ -12,8 +12,10 @@ import {uniq} from 'underscore-plus';
 import path from 'path';
 import {
   disposeAll,
-  focusEditor
+  focusEditor,
+  isValidEditor
 } from './atom-ternjs-helper';
+import debug from './services/debug';
 
 class Rename {
 
@@ -21,21 +23,27 @@ class Rename {
 
     this.disposables = [];
 
+    this.renameView = null;
+    this.renamePanel = null;
+
+    this.hideListener = this.hide.bind(this);
+  }
+
+  init() {
+
     this.renameView = new RenameView();
     this.renameView.initialize(this);
 
-    this.renamePanel = atom.workspace.addBottomPanel({
+    this.renamePanel = atom.workspace.addModalPanel({
 
       item: this.renameView,
-      priority: 0
+      priority: 0,
+      visible: false
     });
-
-    this.renamePanel.hide();
 
     atom.views.getView(this.renamePanel).classList.add('atom-ternjs-rename-panel', 'panel-bottom');
 
-    this.hideHandler = this.hide.bind(this);
-    emitter.on('rename-hide', this.hideHandler);
+    emitter.on('rename-hide', this.hideListener);
 
     this.registerCommands();
   }
@@ -47,12 +55,7 @@ class Rename {
 
   hide() {
 
-    if (!this.renamePanel) {
-
-      return;
-    }
-
-    this.renamePanel.hide();
+    this.renamePanel && this.renamePanel.hide();
 
     focusEditor();
   }
@@ -85,7 +88,7 @@ class Rename {
     for (const editor of editors) {
 
       if (
-        !manager.isValidEditor(editor) ||
+        !isValidEditor(editor) ||
         atom.project.relativizePath(editor.getURI())[0] !== manager.client.projectDir
       ) {
 
@@ -94,38 +97,36 @@ class Rename {
         continue;
       }
 
-      manager.client.update(editor).then((data) => {
+      manager.client.update(editor)
+        .then((data) => {
 
-        if (++idx === editors.length) {
+          if (++idx === editors.length) {
 
-          const activeEditor = atom.workspace.getActiveTextEditor();
-          const cursor = activeEditor.getLastCursor();
+            const activeEditor = atom.workspace.getActiveTextEditor();
+            const cursor = activeEditor.getLastCursor();
 
-          if (!cursor) {
-
-            return;
-          }
-
-          const position = cursor.getBufferPosition();
-
-          manager.client.rename(atom.project.relativizePath(activeEditor.getURI())[1], {line: position.row, ch: position.column}, newName).then((data) => {
-
-            if (!data) {
+            if (!cursor) {
 
               return;
             }
 
-            this.rename(data);
+            const position = cursor.getBufferPosition();
 
-          }).catch((error) => {
+            manager.client.rename(atom.project.relativizePath(activeEditor.getURI())[1], {line: position.row, ch: position.column}, newName).then((data) => {
 
-            atom.notifications.addError(error, {
+              if (!data) {
 
-              dismissable: false
-            });
-          });
-        }
-      });
+                return;
+              }
+
+              this.rename(data);
+            })
+            .catch(debug.handleCatchWithNotification)
+            .then(this.hideListener);
+          }
+        })
+        .catch(debug.handleCatch)
+        .then(this.hideListener);
     }
   }
 
@@ -218,6 +219,9 @@ class Rename {
   destroy() {
 
     disposeAll(this.disposables);
+    this.disposables = [];
+
+    emitter.off('rename-hide', this.hideListener);
 
     this.renameView && this.renameView.destroy();
     this.renameView = null;

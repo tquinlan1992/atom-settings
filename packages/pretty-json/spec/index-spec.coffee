@@ -214,3 +214,57 @@ describe 'Pretty JSON', ->
                 ]
               }
             """
+
+  describe 'when a valid json text is selected', ->
+    it 'formats it correctly, and selects the formatted text', ->
+      waitsForPromise ->
+        atom.workspace.open('selected.json')
+          .then (editor) ->
+            editor.setSelectedBufferRange([[0, 0], [0, 32]])
+            PrettyJSON.prettify editor,
+              sorted: false
+            expect(editor.getText()).toBe """
+              {
+                "key": {
+                  "key": {
+                    "key": "value"
+                  }
+                }
+              }
+
+            """
+            range = editor.getSelectedBufferRange()
+            expect(range.start.row).toBe 0
+            expect(range.start.column).toBe 0
+            expect(range.end.row).toBe 6
+            expect(range.end.column).toBe 1
+
+  # Sort plus prettify causes floating point numbers to become strings.
+  # See issue #62 for more details.
+  xdescribe 'when sorting and prettifying floating point numbers', ->
+    it 'does not turn them into strings', ->
+      waitsForPromise ->
+        atom.workspace.open('floating.json')
+          .then (editor) ->
+            PrettyJSON.prettify editor,
+              sorted: true
+            expect(editor.getText()).toBe """
+            {
+              "floating_point": -0.6579373322603248
+            }
+            """
+
+  # Prettify can affect JavaScript number representation; ie. 6.0 => 6.
+  # See issue #46 for more details.
+  xdescribe 'when prettifying whole numbers represented as floating point', ->
+    it 'does not turn them into whole numbers', ->
+      waitsForPromise ->
+        atom.workspace.open('number.json')
+          .then (editor) ->
+            PrettyJSON.prettify editor,
+              sorted: false
+            expect(editor.getText()).toBe """
+            {
+              "int": 6.0
+            }
+            """

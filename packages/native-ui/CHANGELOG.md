@@ -1,5 +1,66 @@
 # Changelog
 
+## 0.22.1
+
+- Fixed [#74](https://github.com/fv0/native-ui/issues/74)
+- Small design adjustments to Atoms notifications to resemble the appearance of macOS notifications.
+
+## 0.22.0
+
+- Implemented [#72](https://github.com/fv0/native-ui/issues/72): Supported by Atom 1.19 I added macOS transparency for file and directory list. Thanks to [Guillaume](https://github.com/the0neyouseek) for mentioning and helping with this.
+- The Git status in the bottom bar is now back to its old look with a dark background.
+- Cosmetic adjustments here and there.
+- Some design adjustments to the “Project Find Results”.
+- Added testimonials and new screenshots to `README.md`.
+
+## 0.21.0
+
+- Fixed [#69](https://github.com/fv0/native-ui/issues/69): Styled the new “Docks” feature in Atom.
+- Simpfified code for the status bar.
+- Simpfified code for buttons. They might appear a bit less “native” than before, but they don’t break as much in different parts of the UI since they overwrite the default only minorly.
+- Fixed [#70](https://github.com/fv0/native-ui/issues/70): Find in project is showing incomplete/incorrect results.
+
+## 0.20.6
+
+- [#67](https://github.com/fv0/native-ui/issues/67): Fix for the weird display of search results when updating to Atom 1.16.
+
+## 0.20.5
+
+- [#66](https://github.com/fv0/native-ui/issues/66): Broken loading icon for the Linter 2 package.
+
+## 0.20.4
+
+- Made character match better visible.
+- Increased opacity of the border separating the tabs.
+- Adjusted baseline alignments of status bar elements.
+
+## 0.20.3
+
+- [#62](https://github.com/fv0/native-ui/issues/62): Brought back scrollbars for some areas of Native UI. Thanks for the tip, Matt!
+
+## 0.20.2
+
+- Removed small box-shadows on left and right of tabs
+- Cleaned up files
+- Code clean-up
+
+## 0.20
+
+I took the time to make some changes to the interface. At some points the macOS interface elements lack contrast and since a code editor should not stand in your way of working efficiently I adapted some parts. This wasn't easy for me since I wanted to stay to the original as close as possible, but if something is bad, then sometimes you have to make a decision. I hope you like the revamped Native UI and if everything appears wrong, please file an issue in the Github repository. Happy coding! – [Ferdinand](https://twitter.com/ferdinandvogler)
+
+- [#61](https://github.com/fv0/native-ui/issues/61): Theme will now work in Atom 0.13: fixed deprecated selector because of Shadow DOM removal in upcoming release.
+- Tabs: active tab now better visible. When closing a tab, there is now a subtle resize animation.
+- Design changes to the control panel overlay.
+- Design changes for search results page.
+- New app icon.
+- Updated screenshots for the README file.
+
+## 0.19.2
+
+- Fixed fonts for macOS Sierra. The wrong font style was used (slightly condensed).
+- Changed height of status bar to make elements be vertically aligned again.
+- Removed background-transition effect from tabs.
+
 ## 0.19.1
 
 - [#57](https://github.com/fv0/native-ui/issues/57): No border seperating the treeview and status bar.

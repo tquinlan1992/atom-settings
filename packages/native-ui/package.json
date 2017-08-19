@@ -2,63 +2,80 @@
   "_args": [
     [
       {
-        "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
+        "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
         "scope": null,
         "escapedName": null,
         "name": null,
-        "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
-        "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
+        "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
+        "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
         "type": "local"
       },
-      "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116820-26302-5r753m"
+      "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42542-q24lrj.noo6dh1tt9"
     ]
   ],
-  "_from": "../d-116820-26302-1k7a405/package.tgz",
-  "_id": "native-ui@0.19.1",
+  "_from": "../d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
+  "_id": "native-ui@0.22.1",
   "_inCache": true,
-  "_installable": true,
   "_location": "/native-ui",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
+    "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
     "scope": null,
     "escapedName": null,
     "name": null,
-    "rawSpec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
-    "spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
+    "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
+    "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
     "type": "local"
   },
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "file:../d-116820-26302-1k7a405/package.tgz",
-  "_shasum": "105c1ea920bd57c75e383dc99303017646bebb8c",
+  "_resolved": "file:../d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
+  "_shasum": "a72b5000cc1c79a3c09ca22902fd22e1f89beff2",
   "_shrinkwrap": null,
-  "_spec": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/d-116820-26302-1k7a405/package.tgz",
-  "_where": "/private/var/folders/9d/05cjcq853gl806rl8nx_mstr0000gn/T/apm-install-dir-116820-26302-5r753m",
+  "_spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42542-1445ri7.xbji7ctyb9/package.tgz",
+  "_where": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42542-q24lrj.noo6dh1tt9",
   "bugs": {
     "url": "https://github.com/fv0/native-ui/issues"
   },
   "dependencies": {},
-  "description": "Experience better coding in OS X El Capitan.",
+  "description": "Experience better coding in macOS Sierra.",
   "devDependencies": {},
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">= 1.19"
   },
   "homepage": "https://github.com/fv0/native-ui#readme",
   "keywords": [
+    "sierra",
     "elcapitan",
+    "native",
+    "apple",
+    "macos",
     "macosx",
     "sanfrancisco"
   ],
+  "main": "lib/main",
   "name": "native-ui",
   "optionalDependencies": {},
-  "readme": "![Banner Native UI](https://cloud.githubusercontent.com/assets/8401092/10865409/64cbe3b6-800a-11e5-985c-7a63b2bdd402.png)\n\nGet the new OS X El Capitan user interface elements and improved typography in Atom. Experience a reduced, more native feeling for your favorite code editor. No redundant transitions or fancy effects distracting you from your daily work.\n\n###### Made by [@ferdinandvogler](http://www.twitter.com/ferdinandvogler)\n\n---\n\n### Features\n\n- Dynamic tab behaviour as known from Finder\n- Apple's new system font San Francisco\n- Major redesign of the entire Atom interface\n- Better organized file search results\n- No unnecessary animations creating a sluggish experience\n- A lot more – just try it!\n\n### Recommended setup\n\n- OSX El Capitan (necessary for correct font display)\n- High-resolution display\n- Packages: [file-icons](https://atom.io/packages/file-icons) (grayscale)\n\n---\n\n![Features](https://cloud.githubusercontent.com/assets/8401092/12528956/4b89994a-c1a8-11e5-9a88-e96279cb766f.jpg)\n\n![Screenshot 1](https://cloud.githubusercontent.com/assets/8401092/12528992/a407bf9c-c1a9-11e5-8b73-6b11575b0ea4.jpg)\n\n![Screenshot 2](https://cloud.githubusercontent.com/assets/8401092/12528993/a408dc06-c1a9-11e5-97b7-98b40193174c.jpg)\n\n---\n\n### Icons\n\nAs seen in the Native UI logo above.\n\n- Mac: [Atom.icns](https://github.com/fv0/native-ui/raw/master/Atom.icns)\n- Windows: [Atom.ico](https://github.com/fv0/native-ui/raw/master/Atom.ico)\n\n---\n\n### How to install\n\nGo to `Settings` → `Install`, switch the tab from `Packages` to `Themes` and search for **native-ui**. After that select the theme **Native** in `Settings` → `Themes`.\n\n**OR**\n\nIf you have the Atom Package Manager installed you can  launch Terminal and run `apm install native-ui`.\n\n---\n\n### Enjoy working with Native UI? 😎\n\n[Tell others on Twitter](https://twitter.com/intent/tweet?text=Native%20UI,%20a%20Atom%20theme%20for%20El%20Capitan&url=http%3A%2F%2Fatom.io/themes/native-ui&via=ferdinandvogler) and [let's talk](https://twitter.com/intent/tweet?text=@ferdinandvogler) about other features you would like.\n",
+  "readme": "![Banner Native UI](https://cloud.githubusercontent.com/assets/8401092/20631149/769f190a-b335-11e6-91ba-aad73f7f4c49.jpg)\n\nNative UI brings macOS’ looks to Atom. Experience a reduced, more native feeling for your favorite code editor. No redundant transitions or fancy effects distracting you from your daily work.\n\nCreated by **[Ferdinand Vogler](https://www.twitter.com/ferdinandvogler)**, Product Designer.\n\n# Features\n\n- Tab behavior known from Finder.\n- `NEW` macOS transparent blur effect for the directory list.\n- Apple’s new system font San Francisco.\n- Better structured search results.\n- Redesign of many parts in Atom.\n- Built fast and reliant with an eye for details.\n\n# What Developers say about Native UI\n\n> “This theme makes Atom look like it should on macOS. It’s the gold standard for native themes.”  \n> — [Nick Balsbaugh](https://github.com/fv0/native-ui/issues/70#issuecomment-306361702)\n>\n> “Just started working on Atom’s Native UI theme this week and it’s awesome!”  \n> — [Odicro](https://twitter.com/odicro/status/744053690164723712)\n>\n> “Native UI, an Atom theme for El Capitan is flat out amazing. I love this theme.”  \n> — [Amy](https://twitter.com/lexicalunit/status/715246366293934083)\n>\n> “Started using Native UI, a super cool Atom theme for El Capitan. Really well made.”  \n> — [Alexey](https://twitter.com/laughedelic/status/667736559064621058)\n\n# Screenshots\n\n![Editor](https://user-images.githubusercontent.com/8401092/29223143-ca3f182e-7ec5-11e7-95e0-62dd1f2b6878.jpg)\n![File Switcher](https://user-images.githubusercontent.com/8401092/29223144-ca5851fe-7ec5-11e7-80ff-bdf86afff71f.jpg)\n![Search Results](https://user-images.githubusercontent.com/8401092/29223145-ca5eaafe-7ec5-11e7-85c4-066a71c5a535.jpg)\n![Settings](https://user-images.githubusercontent.com/8401092/29223146-ca5ebeb8-7ec5-11e7-932b-b0ef74986ddb.jpg)\n\n\n# Icons\n\n![](https://cloud.githubusercontent.com/assets/8401092/20631850/50eec71a-b339-11e6-9cf1-e245e8d6451b.png)\n\nChoose between [macOS (.icns)](https://github.com/fv0/native-ui/raw/master/Atom.icns) or [Windows (.ico)](https://github.com/fv0/native-ui/raw/master/Atom.ico).\n\n# How To Install\n\nTerminal | Atom\n--- | ---\nIf you have the Atom Package Manager installed you can run `apm install native-ui` | Go to <kbd>Settings</kbd> → <kbd>Install</kbd>, switch the tab from <kbd>Packages</kbd> to <kbd>Themes</kbd> and search for **native-ui**. After that select the theme **Native** in <kbd>Settings</kbd> → <kbd>Themes</kbd>.\n\n# Enjoy working with Native UI?\n\n[Tell others on Twitter](https://twitter.com/intent/tweet?text=Native%20UI,%20a%20Atom%20theme%20for%20El%20Capitan&url=http%3A%2F%2Fatom.io/themes/native-ui&via=ferdinandvogler) and [let’s talk](https://twitter.com/intent/tweet?text=@ferdinandvogler) about other features you would like.\n",
   "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fv0/native-ui.git"
   },
   "theme": "ui",
-  "version": "0.19.1"
+  "version": "0.22.1",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".js": [
+        "lib/main.js"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
 }

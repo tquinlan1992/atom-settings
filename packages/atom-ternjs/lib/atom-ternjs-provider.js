@@ -6,6 +6,7 @@ const REGEXP_LINE = /(([\$\w]+[\w-]*)|([.:;'"[{( ]+))$/g;
 import manager from './atom-ternjs-manager';
 import packageConfig from './atom-ternjs-package-config';
 import {
+  disposeAll,
   formatTypeCompletion
 } from './atom-ternjs-helper';
 import {
@@ -27,12 +28,12 @@ class Provider {
     this.suggestionPriority = packageConfig.options.snippetsFirst ? null : 2;
     this.excludeLowerPriority = packageConfig.options.excludeLowerPriorityProviders;
 
-    this.line = undefined;
-    this.lineMatchResult = undefined;
-    this.tempPrefix = undefined;
-    this.suggestionsArr = undefined;
-    this.suggestion = undefined;
-    this.suggestionClone = undefined;
+    this.suggestionsArr = null;
+    this.suggestion = null;
+    this.suggestionClone = null;
+  }
+
+  init() {
 
     this.registerCommands();
   }
@@ -79,7 +80,7 @@ class Provider {
   checkPrefix(prefix) {
 
     if (
-      prefix.match(/(\(|\s|;|\.|\"|\')$/) ||
+      /(\(|\s|;|\.|\"|\')$/.test(prefix) ||
       prefix.replace(/\s/g, '').length === 0
     ) {
 
@@ -91,32 +92,29 @@ class Provider {
 
   getPrefix(editor, bufferPosition) {
 
-    this.line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]);
-    this.lineMatchResult = this.line.match(REGEXP_LINE);
+    const line = editor.getTextInRange([[bufferPosition.row, 0], bufferPosition]);
+    const matches = line.match(REGEXP_LINE);
 
-    if (this.lineMatchResult) {
-
-      return this.lineMatchResult[0];
-    }
+    return matches && matches[0];
   }
 
   getSuggestions({editor, bufferPosition, scopeDescriptor, prefix, activatedManually}) {
 
+    if (!manager.client) {
+
+      return [];
+    }
+
+    const tempPrefix = this.getPrefix(editor, bufferPosition) || prefix;
+
+    if (!this.isValidPrefix(tempPrefix, tempPrefix[tempPrefix.length - 1]) && !this.force && !activatedManually) {
+
+      return [];
+    }
+
     return new Promise((resolve) => {
 
-      if (!manager.client) {
-
-        return resolve([]);
-      }
-
-      this.tempPrefix = this.getPrefix(editor, bufferPosition) || prefix;
-
-      if (!this.isValidPrefix(this.tempPrefix, this.tempPrefix[this.tempPrefix.length - 1]) && !this.force && !activatedManually) {
-
-        return resolve([]);
-      }
-
-      prefix = this.checkPrefix(this.tempPrefix);
+      prefix = this.checkPrefix(tempPrefix);
 
       manager.client.update(editor).then((data) => {
 
@@ -194,6 +192,10 @@ class Provider {
           console.error(err);
           resolve([]);
         });
+      })
+      .catch(() => {
+
+        resolve([]);
       });
     });
   }
@@ -207,7 +209,8 @@ class Provider {
 
   destroy() {
 
-
+    disposeAll(this.disposables);
+    this.disposables = [];
   }
 }
 

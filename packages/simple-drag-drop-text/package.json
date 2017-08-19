@@ -1,30 +1,64 @@
 {
-  "name": "simple-drag-drop-text",
-  "main": "./lib/simple-drag-drop-text",
-  "version": "0.3.1",
-  "description": "Adds basic drag and drop text feature to Atom editor.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mark-hahn/simple-drag-drop-text.git"
+  "_args": [
+    [
+      {
+        "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+        "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+        "type": "local"
+      },
+      "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42588-1x7einc.qnovlvj9k9"
+    ]
+  ],
+  "_from": "../d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+  "_id": "simple-drag-drop-text@0.3.4",
+  "_inCache": true,
+  "_location": "/simple-drag-drop-text",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+    "spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+    "type": "local"
   },
-  "license": "MIT",
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+  "_shasum": "32b17b5aad7b409a0c6f5860fc17742239492519",
+  "_shrinkwrap": null,
+  "_spec": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/d-117717-42588-z8z1tu.byxhwipb9/package.tgz",
+  "_where": "/private/var/folders/r8/588mnx4d103cmf75x13myv040000gn/T/apm-install-dir-117717-42588-1x7einc.qnovlvj9k9",
+  "bugs": {
+    "url": "https://github.com/geoffthibeau/simple-drag-drop-text/issues"
+  },
+  "dependencies": {
+    "jquery": "^2.0.0",
+    "sub-atom": "^1.0.0"
+  },
+  "description": "Adds basic drag and drop text feature to Atom editor.",
+  "devDependencies": {},
   "engines": {
     "atom": ">0.170.0"
   },
-  "dependencies": {
-    "sub-atom": "^1.0.0",
-    "jquery": "^2.0.0"
-  },
-  "readme": "# simple-drag-drop-text package for the Atom editor\n\nDrag and drop to move text using the mouse.  This mimics the standard behavior of many other editors.  Dragging and dropping with the `ALT` key held will copy the text instead of moving it.\n\n---\n\n![Image inserted by Atom editor package auto-host-markdown-image](http://i.imgur.com/A7IeEag.gif)\n\n---\n\n### Installation\n\nEnter `atom install simple-drag-drop-text` or use the settings page.\n\n---\n\n### Usage\n\nThere is no Atom command.  \n\nDrag/drop is triggered by clicking and dragging a text selection from one palce to another. Dragging with no modifer key will move the text to the position the mouse is released.  If the `ALT` key is down when the mouse is released then the text will be copied instead of moved.  The `ALT` key does not have to pressed before this time.\n\n### Alternative Package \n\nThere is a sister package to this one, `drag-drop-text`.  It offers more features but it has a small learning curve and does not follow the standard behavior of other editors.  This is for true mouse-loving geeks (like me).\n\nDrag-drop-text package features ...\n\n- No need for any modifier key like `ALT` for any operation.  Everything is done with the left mouse button.\n- You can do the standard cut (`ctrl-x`), copy (`ctrl-c`), and paste (`ctrl-v`) operations using only the mouse.\n- Text that has been dragged is left in the clipboard.  So you can drag and then paste the same text again.\n\n---\n\n### License\n\nCopyright Mark Hahn using the MIT license\n",
+  "homepage": "https://github.com/geoffthibeau/simple-drag-drop-text#readme",
+  "license": "MIT",
+  "main": "./lib/simple-drag-drop-text",
+  "name": "simple-drag-drop-text",
+  "optionalDependencies": {},
+  "readme": "# simple-drag-drop-text package for the Atom editor\n\nDrag and drop to move text using the mouse. This mimics the standard behavior of many other editors.  Dragging and dropping with the modifier key held will copy the text instead of moving it. You may change the modifier key in the Settings; options are `CTRL`, `ALT`, and `META` (super/Windows/command).\n\n---\n\n![Image inserted by Atom editor package auto-host-markdown-image](http://i.imgur.com/A7IeEag.gif)\n\n---\n\n### Installation\n\nEnter `apm install simple-drag-drop-text` or use the settings page.\n\n---\n\n### Usage\n\nThere is no Atom command.  \n\nDrag/drop is triggered by clicking and dragging a text selection from one place to another. If the modifier key is held when the mouse is released then the text will be copied instead of moved. The default modifier key is `CTRL` but you may change this in the Settings to either `ALT` or `META` (super/Windows/command).\n\n### Alternative Package\n\nThere is a sister package to this one, `drag-drop-text`. It is more complex but it has a small learning curve and does not follow the standard behavior of other editors.\n\n---\n\n### License\n\nCopyright Mark Hahn using the MIT license. Maintained by Geoff Thibeau since 2017-02-08.\n",
   "readmeFilename": "README.md",
-  "bugs": {
-    "url": "https://github.com/mark-hahn/simple-drag-drop-text/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geoffthibeau/simple-drag-drop-text.git"
   },
-  "homepage": "https://github.com/mark-hahn/simple-drag-drop-text#readme",
-  "_id": "simple-drag-drop-text@0.3.1",
-  "_shasum": "af21064c2cc13e784e0791a951aef2a03af8bb3e",
-  "_resolved": "file:../d-116727-68916-1mpvlst/package.tgz",
-  "_from": "../d-116727-68916-1mpvlst/package.tgz",
+  "version": "0.3.4",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -155,8 +189,8 @@
           ""
         ],
         "dependencies": {
-          "sub-atom": "^1.0.0",
-          "jquery": "^2.0.0"
+          "jquery": "^2.0.0",
+          "sub-atom": "^1.0.0"
         }
       },
       {

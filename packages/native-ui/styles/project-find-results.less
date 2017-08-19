@@ -1,134 +1,90 @@
-ul.list-tree.matches > li.search-result.list-item {
-  padding-left: 0; // align with file type icon
+@import "ui-variables";
 
-  &:before {
-    content: '';
-    background-color: transparent;
-    position: absolute;
-    left: @component-padding + 1;
-    right: @component-padding + 1;
-    height: 25px;
-  }
-
-  &.selected:before {
-    left: @component-padding + 1;
-    right: @component-padding + 1;
-  }
-
-  &:hover:before {
-    background-color: @base-background-color;
-    cursor: pointer;
-  }
-
-  &:hover.selected {
-    &:before {
-      background-color: @base-background-color;
-    }
-  }
-}
-
-.preview-pane .list-group .selected:before,
-.preview-pane .list-tree .selected:before {
-  left: @component-padding + 1;
-  right: @component-padding + 1;
+.preview-pane .preview-header {
+  padding: @component-padding ;
+  font-size: 1.75em;
+  font-weight: bold;
   background-color: @base-background-color;
-}
+  font-family: @font-family-headlines;
+  border-bottom: none; // ow
+  width: 100%;
+  z-index: 1;
 
-
-
-.results-view li.search-result.list-item {
-  margin-left: 0;
-}
-
-
-
-ul.list-tree.matches {
-  &:hover {
-    cursor: pointer; // avoid cursor flashing between list items
+  .preview-controls {
+    font-family: @font-family;
   }
 }
 
+.results-view {
+  padding: 0 @component-padding;
+}
 
-.preview-pane .results-view .line-number,
-.preview-pane .results-view .preview {
-  position: relative; // otherwise the :before will overlay the text
+// Single search result
+.results-view .list-tree > div {
+  background-color: @input-background-color;
+  border: 1px solid @base-border-color;
+  border-top: none;
 
-  &:hover {
-    cursor: pointer;
+  &:first-child {
+    border-top: 1px solid @base-border-color;
   }
 }
 
-.preview-pane .results-view .search-result {
+.results-view .list-tree.has-collapsable-children {
   padding: 0;
 }
 
+.preview-pane .results-view .selected {
+  > .line-number,
+  > .preview,
+  > .path-details.list-item.collapsed,
+  .path-match-number {
+    color: @text-color-selected;
+  }
+}
+
+// Increase distance to search result in code
 .preview-pane .results-view .line-number {
-  width: 15px;
-  text-align: left;
-  margin-right: 22px; // align with file name
+  border-right: 1px solid @base-border-color;
+  margin-right: @component-padding / 2;
+  min-width: @component-padding * 4; // width of a 5-digit number
+  padding-right: @component-padding / 2;
 }
 
 .preview-pane .results-view .selected .line-number {
   color: @text-color-subtle;
 }
 
-
-
-
-
-.results-view li.path.list-nested-item {
-  margin-bottom: 20px; // seperate single files
-  background-color: @input-background-color;
-  border-radius: @border-radius--base;
-  padding: 8px 12px;
-  border: 1px solid @tab-bar-border-color;
-  overflow: hidden;
-
-  &:hover {
-    cursor: pointer; // avoid cursor flashing between list items
-  }
-
-  &:first-child {
-    margin-top: 57px;
-  }
-}
-
-
+// Name of the file the search result was found in
 .results-view .path-details.list-item {
-  font-size: @font-size-h4;
-  margin-bottom: 8px; // same as vertical padding for container box
+  padding: 0 @component-padding;
 
-  &:hover {
-    cursor: pointer;
-    color: @text-color-subtle;
+  .path-name {
+    font-weight: bold;
   }
 
-
+  .path-match-number {
+    color: @text-color;
+  }
 }
 
-.results-view .selected > div.path-details.list-item {
-  color: @text-color-selected;
-}
-
-.results-view .selected.collapsed > div.path-details.list-item {
+.results-view .selected > .path-details.list-item {
   color: @text-color;
 }
 
-.preview-pane .panel-heading {
-  padding: 17px 35px;
-  text-align: center;
-  font-family: @font-family-headlines;
-  font-size: 1.75em; // same as Atom settings headings
-  background-image: none;
-  font-weight: bold;
-  background-color: fade(@base-background-color, 90%);
-  position: absolute;
-  width: 100%;
-  z-index: 1;
+// Don’t indent the list items
+.results-view .list-tree.has-collapsable-children li.list-item {
+  margin-left: 0;
+
+  &.selected .preview {
+    color: @text-color;
+  }
 }
 
-.preview-pane .preview .match,
-.preview-pane .preview .replacement {
-  padding: 1px;
-  border-radius: 0;
+// Hover over the list results in a different color
+.results-view .search-result.list-item,
+.results-view .path-details.list-item {
+  &:hover {
+    background-color: darken(@base-background-color, 3%);
+  }
 }

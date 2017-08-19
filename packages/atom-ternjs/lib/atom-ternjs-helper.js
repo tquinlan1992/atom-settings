@@ -4,8 +4,7 @@ import manager from './atom-ternjs-manager';
 import packageConfig from './atom-ternjs-package-config';
 import path from 'path';
 import fs from 'fs';
-
-let checkpointsDefinition = [];
+import navigation from './services/navigation';
 
 const tags = {
 
@@ -14,7 +13,32 @@ const tags = {
   '>': '&gt;'
 };
 
-export const accessKey = 'altKey';
+const grammars = [
+
+  'JavaScript',
+  'JavaScript (JSX)',
+  'Babel ES6 JavaScript',
+  'Vue Component'
+];
+
+export function isValidEditor(editor) {
+
+  const isTextEditor = atom.workspace.isTextEditor(editor);
+
+  if (!isTextEditor || editor.isMini()) {
+
+    return false;
+  }
+
+  const grammar = editor.getGrammar();
+
+  if (!grammars.includes(grammar.name)) {
+
+    return false;
+  }
+
+  return true;
+}
 
 export function focusEditor() {
 
@@ -78,8 +102,8 @@ export function prepareInlineDocs(data) {
 
   return data
     .replace(/@param/, '<span class="doc-param-first">@param</span>')
-    .replace(/@param/g, '<span class="storage type doc-param">@param</span>')
-    .replace(/@return/, '<span class="storage type doc-return">@return</span>')
+    .replace(/@param/g, '<span class="text-info doc-param">@param</span>')
+    .replace(/@return/, '<span class="text-info doc-return">@return</span>')
     ;
 }
 
@@ -188,10 +212,14 @@ export function formatTypeCompletion(obj, isProperty, isObjectKey, isInFunDef) {
   } else {
 
     obj.name = obj.name ? obj.name.replace(/["']/g, '') : null;
-    obj.name = obj.name ? obj.name.replace(/^..\//, '') : null;
   }
 
+  obj.name = obj.name ? obj.name.replace(/^..?\//, '') : null;
+
   if (!obj.type) {
+
+    obj._displayText = obj.name;
+    obj._snippet = obj.name;
 
     return obj;
   }
@@ -274,15 +302,7 @@ export function formatTypeCompletion(obj, isProperty, isObjectKey, isInFunDef) {
 
 export function disposeAll(disposables) {
 
-  for (const disposable of disposables) {
-
-    if (!disposable) {
-
-      continue;
-    }
-
-    disposable.dispose();
-  }
+  disposables.forEach(disposable => disposable.dispose());
 }
 
 export function openFileAndGoToPosition(position, file) {
@@ -315,12 +335,17 @@ export function openFileAndGoTo(start, file) {
       return;
     }
 
+    const bufferPosition = buffer.positionForCharacterIndex(start);
+
     cursor.setBufferPosition(buffer.positionForCharacterIndex(start));
+
+    navigation.append(textEditor, buffer, bufferPosition);
+
     markDefinitionBufferRange(cursor, textEditor);
   });
 }
 
-export function updateTernFile(content, restartServer) {
+export function updateTernFile(content) {
 
   const projectRoot = manager.server && manager.server.projectDir;
 
@@ -329,21 +354,19 @@ export function updateTernFile(content, restartServer) {
     return;
   }
 
-  writeFile(path.resolve(__dirname, projectRoot + '/.tern-project'), content, restartServer);
+  writeFile(path.resolve(__dirname, projectRoot + '/.tern-project'), content);
 }
 
-export function writeFile(filePath, content, restartServer) {
+export function writeFile(filePath, content) {
 
   fs.writeFile(filePath, content, (error) => {
 
     atom.workspace.open(filePath);
 
-    if (!error && restartServer) {
-
-      manager.restartServer();
-    }
-
     if (!error) {
+
+      const server = manager.server;
+      server && server.restart();
 
       return;
     }
@@ -399,39 +422,14 @@ export function getFileContent(filePath, root) {
 
 export function readFile(path) {
 
-  return fs.readFileSync(path, 'utf8');
-}
+  try {
 
-export function setMarkerCheckpoint() {
+    return fs.readFileSync(path, 'utf8');
 
-  const editor = atom.workspace.getActiveTextEditor();
-  const buffer = editor.getBuffer();
-  const cursor = editor.getLastCursor();
+  } catch (err) {
 
-  if (!cursor) {
-
-    return;
+    return undefined;
   }
-
-  const marker = buffer.markPosition(cursor.getBufferPosition(), {});
-
-  checkpointsDefinition.push({
-
-    marker: marker,
-    editor: editor
-  });
-}
-
-export function markerCheckpointBack() {
-
-  if (!checkpointsDefinition.length) {
-
-    return;
-  }
-
-  const checkpoint = checkpointsDefinition.pop();
-
-  openFileAndGoToPosition(checkpoint.marker.getRange().start, checkpoint.editor.getURI());
 }
 
 export function markDefinitionBufferRange(cursor, editor) {
@@ -478,4 +476,11 @@ export function markDefinitionBufferRange(cursor, editor) {
     marker.destroy();
 
   }, 2500);
+}
+
+export function getPackagePath() {
+
+  const packagPath = atom.packages.resolvePackagePath('atom-ternjs');
+
+  return packagPath;
 }

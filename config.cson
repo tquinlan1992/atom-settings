@@ -18,7 +18,7 @@
     ]
     telemetryConsent: "no"
     themes: [
-      "genesis-ui"
+      "seti-ui"
       "one-dark-syntax"
     ]
   editor:
@@ -47,10 +47,11 @@
   "linter-jshint": {}
   minimap: {}
   "npm-install": {}
-  pigments:
-    markerType: "square-dot"
+  pigments: {}
   "save-session":
     dataSaveFolder: "/Users/thomasquinlan/.atom/packages/save-session/projects"
+  "seti-ui":
+    compactView: true
   "split-diff":
     diffWords: true
     ignoreWhitespace: true

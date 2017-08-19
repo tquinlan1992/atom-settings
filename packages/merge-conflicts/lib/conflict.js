@@ -86,8 +86,8 @@ export class Conflict {
    */
   markers () {
     const ms = [this.ours.markers(), this.theirs.markers(), this.navigator.markers()]
-    if (this.baseSide) {
-      ms.push(this.baseSide.markers())
+    if (this.base) {
+      ms.push(this.base.markers())
     }
     return _.flatten(ms, true)
   }
@@ -153,7 +153,6 @@ const BOTTOM = 'bottom'
 
 // Options used to initialize markers.
 const options = {
-  persistent: false,
   invalidate: 'never'
 }
 

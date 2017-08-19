@@ -9,34 +9,40 @@ import {
   replaceTags,
   formatType
 } from '././atom-ternjs-helper';
+import debug from './services/debug';
 
 class Documentation {
 
   constructor() {
 
+    this.disposable = null;
     this.disposables = [];
+
+    this.view = null;
+    this.overlayDecoration = null;
+    this.destroyDocumenationListener = this.destroyOverlay.bind(this);
+  }
+
+  init() {
 
     this.view = new DocumentationView();
     this.view.initialize(this);
 
     atom.views.getView(atom.workspace).appendChild(this.view);
 
-    this.destroyDocumenationHandler = this.destroyOverlay.bind(this);
-    emitter.on('documentation-destroy-overlay', this.destroyDocumenationHandler);
-
-    this.registerCommands();
-  }
-
-  registerCommands() {
-
+    emitter.on('documentation-destroy-overlay', this.destroyDocumenationListener);
     this.disposables.push(atom.commands.add('atom-text-editor', 'atom-ternjs:documentation', this.request.bind(this)));
   }
 
   request() {
 
+    this.destroyOverlay();
     let editor = atom.workspace.getActiveTextEditor();
 
-    if (!editor) {
+    if (
+      !editor ||
+      !manager.client
+    ) {
 
       return;
     }
@@ -68,51 +74,41 @@ class Documentation {
 
         this.show();
       });
-    });
+    })
+    .catch(debug.handleCatch);
   }
 
   show() {
 
-    if (!this.marker) {
+    const editor = atom.workspace.getActiveTextEditor();
 
-      let editor = atom.workspace.getActiveTextEditor();
-      let cursor = editor.getLastCursor();
+    if (!editor) {
 
-      if (!editor || !cursor) {
-
-        return;
-      }
-
-      this.marker = cursor.getMarker();
-
-      if (!this.marker) {
-
-        return;
-      }
-
-      this.overlayDecoration = editor.decorateMarker(this.marker, {
-
-        type: 'overlay',
-        item: this.view,
-        class: 'atom-ternjs-documentation',
-        position: 'tale',
-        invalidate: 'touch'
-      });
-
-    } else {
-
-      this.marker.setProperties({
-
-        type: 'overlay',
-        item: this.view,
-        class: 'atom-ternjs-documentation',
-        position: 'tale',
-        invalidate: 'touch'
-      });
+      return;
     }
+
+    const marker = editor.getLastCursor && editor.getLastCursor().getMarker();
+
+    if (!marker) {
+
+      return;
+    }
+
+    this.disposable = editor.onDidChangeCursorPosition(this.destroyDocumenationListener);
+
+    this.overlayDecoration = editor.decorateMarker(marker, {
+
+      type: 'overlay',
+      item: this.view,
+      class: 'atom-ternjs-documentation',
+      position: 'tale',
+      invalidate: 'touch'
+    });
   }
 
   destroyOverlay() {
+
+    this.disposable && this.disposable.dispose();
 
     if (this.overlayDecoration) {
 
@@ -120,19 +116,21 @@ class Documentation {
     }
 
     this.overlayDecoration = null;
-    this.marker = null;
   }
 
   destroy() {
 
+    emitter.off('documentation-destroy-overlay', this.destroyDocumenationListener);
+
     disposeAll(this.disposables);
+    this.disposables = [];
 
     this.destroyOverlay();
 
     if (this.view) {
 
       this.view.destroy();
-      this.view = undefined;
+      this.view = null;
     }
   }
 }
