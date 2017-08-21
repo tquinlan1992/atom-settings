@@ -52,6 +52,7 @@
     dataSaveFolder: "/Users/thomasquinlan/.atom/packages/save-session/projects"
   "seti-ui":
     compactView: true
+    themeColor: "Green"
   "split-diff":
     diffWords: true
     ignoreWhitespace: true
